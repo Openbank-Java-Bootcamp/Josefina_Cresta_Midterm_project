@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.javamoney.moneta.Money;
 
 import java.util.Date;
 
@@ -14,42 +15,45 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "account")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long AccountId;
 
-    private double balance;
-
-    @ManyToOne
-    @JoinColumn(name = "account_holder_id")
-    private AccountHolder primaryOwner;
-
-   /* @ManyToOne
-    @JoinColumn(name = "account_holder_id")*/
-    private String secondaryOwner;
-
-    private double penaltyFee;
+    @Column(length = 510)
+    private Money balance;
 
     //La Credit tiene las siguientes tambien?
     private String secretKey;
 
-    private double minimumBalance;
+    @Column(length = 510)
+    private Money penaltyFee;
+
+    @Column(length = 510)
+    private Money minimumBalance;
 
     private Date creationDate;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "account_holder_account_holder_id")
-    private AccountHolder accountHolder;
+   /* @ManyToOne
+    @JoinColumn(name = "account_holder_id")
+    private AccountHolder primaryOwner;*/
 
-    public AccountHolder getAccountHolder() {
-        return accountHolder;
-    }
+   /* @ManyToOne
+    @JoinColumn(name = "primaryOwner")
+    private AccountHolder primaryOwner;*/
 
-    public void setAccountHolder(AccountHolder accountHolder) {
-        this.accountHolder = accountHolder;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "primaryOwner")
+    private AccountHolder primaryOwner;
+
+
+  /*  @ManyToOne
+    @JoinColumn(name = "account_holder_id")*/
+    private String secondaryOwner;
+
+
 }

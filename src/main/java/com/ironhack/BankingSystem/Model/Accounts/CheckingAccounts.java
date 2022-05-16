@@ -5,16 +5,20 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.javamoney.moneta.Money;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//@Table(name = "CheckingAccounts")
 public class CheckingAccounts extends Account {
 
-    private double minimumBalance;
+    @Column(length = 510)
+    private Money minimumBalance;
 
-    private double monthlyMaintenanceFee;
+    @Column(length = 510)
+    private Money monthlyMaintenanceFee;
 
 
 }
