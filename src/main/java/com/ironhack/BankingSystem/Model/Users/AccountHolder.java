@@ -2,6 +2,7 @@ package com.ironhack.BankingSystem.Model.Users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.secutiry.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,13 +17,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "account_holder")
-public class AccountHolder {
-    @Id
+//@Table(name = "account_holder")
+public class AccountHolder extends User {
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accountHolderId;
+    private Long accountHolderId;*/
 
-    private String name;
     private Date birthDate;
 
     @Embedded
@@ -44,5 +44,7 @@ public class AccountHolder {
     @JsonIgnore
     private List<Account> accountList;
 
-
+    public AccountHolder(String name) {
+        super(name);
+    }
 }

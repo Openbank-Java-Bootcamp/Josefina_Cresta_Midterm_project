@@ -1,6 +1,7 @@
 package com.ironhack.BankingSystem.Service.impl;
 
 
+import com.ironhack.BankingSystem.Model.Users.Admin;
 import com.ironhack.BankingSystem.Model.secutiry.Role;
 import com.ironhack.BankingSystem.Model.secutiry.User;
 import com.ironhack.BankingSystem.Repository.security.RoleRepository;
@@ -50,7 +51,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         }
     }
 
-/*    @Override
+   @Override
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -58,6 +59,15 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     }
 
     @Override
+    public User saveAdmin(Admin admin) {
+        log.info("Saving new admin {} to the database", admin.getName());
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        return userRepository.save(admin);
+    }
+
+
+
+   @Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
         return roleRepository.save(role);
@@ -82,5 +92,5 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     public List<User> getUsers() {
         log.info("Fetching all users");
         return userRepository.findAll();
-    }*/
+    }
 }

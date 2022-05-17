@@ -15,7 +15,7 @@ public class RoleController implements RoleControllerInterface {
     @Autowired
     private UserServiceInterface userService;
 
- /*   @PostMapping("/roles")
+  @PostMapping("/roles")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveRole(@RequestBody Role role) {
         userService.saveRole(role);
@@ -25,7 +25,7 @@ public class RoleController implements RoleControllerInterface {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addRoleToUser(@RequestBody RoleToUserDTO roleToUserDTO) {
         userService.addRoleToUser(roleToUserDTO.getUsername(), roleToUserDTO.getRoleName());
-    }*/
+    }
 
 
 }

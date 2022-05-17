@@ -15,16 +15,18 @@ public class UserController {
 
     @Autowired
     private UserServiceInterface userService;
-/*
+
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveUser(@RequestBody User user) {
+        userService.saveUser(user);
+    }
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getUsers(){
         return userService.getUsers();
     }
 
-    @PostMapping("/users")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void saveUser(@RequestBody User user) {
-        userService.saveUser(user);
-    }*/
+
+
 }

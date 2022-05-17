@@ -1,11 +1,12 @@
 package com.ironhack.BankingSystem.Model.Accounts;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Utils.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.javamoney.moneta.Money;
+
 
 @Entity
 @Data
@@ -14,10 +15,16 @@ import org.javamoney.moneta.Money;
 //@Table(name = "CheckingAccounts")
 public class CheckingAccounts extends Account {
 
-    @Column(length = 510)
+    @AttributeOverrides({
+            @AttributeOverride(name = "currency", column = @Column(name = "minimumBalance_currency")),
+            @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount"))
+    })
     private Money minimumBalance;
 
-    @Column(length = 510)
+    @AttributeOverrides({
+            @AttributeOverride(name = "currency", column = @Column(name = "monthlyMaintenanceFee_currency")),
+            @AttributeOverride(name = "amount", column = @Column(name = "monthlyMaintenanceFee_amount"))
+    })
     private Money monthlyMaintenanceFee;
 
 

@@ -1,11 +1,19 @@
 package com.ironhack.BankingSystem;
 
+import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Model.secutiry.Role;
+import com.ironhack.BankingSystem.Model.secutiry.User;
+import com.ironhack.BankingSystem.Service.impl.AccountHolderService;
+import com.ironhack.BankingSystem.Service.impl.AccountService;
+import com.ironhack.BankingSystem.Service.impl.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class BankingSystemApplication {
@@ -19,8 +27,8 @@ public class BankingSystemApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-/*	@Bean
-	CommandLineRunner run(UserService userService, AuthorService authorService, BlogPostService blogPostService){
+	@Bean
+	CommandLineRunner run(UserService userService, AccountHolderService accountHolderService, AccountService accountService){
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
@@ -36,14 +44,14 @@ public class BankingSystemApplication {
 			userService.addRoleToUser("chris", "ROLE_ADMIN");
 			userService.addRoleToUser("chris", "ROLE_USER");
 
-			authorService.saveAuthor(new Author("Aiko Tanaka"));
-			authorService.saveAuthor(new Author("Jonas Schmidt"));
-			authorService.saveAuthor(new Author("Cas Van Dijk"));
+			accountHolderService.saveAccountHolder(new AccountHolder("Aiko Tanaka"));
+			accountHolderService.saveAccountHolder(new AccountHolder("Josefina Cresta"));
 
-			blogPostService.saveBlogPost(new BlogPost(1L, "Boost Your Productivity with 10 Easy Tips", "Productivity - we all want it but it seems ..."));
+
+			/*blogPostService.saveBlogPost(new BlogPost(1L, "Boost Your Productivity with 10 Easy Tips", "Productivity - we all want it but it seems ..."));
 			blogPostService.saveBlogPost(new BlogPost(2L, "How to Focus", "Do you ever sit down to work and find yourself ..."));
-			blogPostService.saveBlogPost(new BlogPost(3L, "Learn to Speed Read in 30 Days", "Knowledge, not ability, is the great determiner of ..."));
+			blogPostService.saveBlogPost(new BlogPost(3L, "Learn to Speed Read in 30 Days", "Knowledge, not ability, is the great determiner of ..."));*/
 		};
-	}*/
+	}
 
 }

@@ -2,18 +2,21 @@ package com.ironhack.BankingSystem.Model.Accounts;
 
 import com.ironhack.BankingSystem.Enum.Status;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Model.Utils.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.javamoney.moneta.Money;
 
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)      //SI pongo este quitar el generatedValue
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "account")
 public class Account {
@@ -21,19 +24,28 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long AccountId;
 
-    @Column(length = 510)
+   /* @AttributeOverrides({
+            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency")),
+            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount"))
+    })*/
     private Money balance;
 
     //La Credit tiene las siguientes tambien?
     private String secretKey;
 
-    @Column(length = 510)
+    @AttributeOverrides({
+            @AttributeOverride(name = "currency", column = @Column(name = "penaltyFee_currency")),
+            @AttributeOverride(name = "amount", column = @Column(name = "penaltyFee_amount"))
+    })
     private Money penaltyFee;
 
-    @Column(length = 510)
+ /*   @AttributeOverrides({
+            @AttributeOverride(name = "currency", column = @Column(name = "minimumBalance_currency")),
+            @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount"))
+    })
     private Money minimumBalance;
-
-    private Date creationDate;
+*/
+    private LocalDateTime creationDate;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -51,9 +63,20 @@ public class Account {
     private AccountHolder primaryOwner;
 
 
-  /*  @ManyToOne
-    @JoinColumn(name = "account_holder_id")*/
+    /*  @ManyToOne
+      @JoinColumn(name = "account_holder_id")*/
     private String secondaryOwner;
 
-
+    public Account(Money balance, String secretKey, Money penaltyFee,
+                   LocalDateTime creationDate, Status status, AccountHolder primaryOwner, String secondaryOwner) {
+        this.balance = balance;
+        this.secretKey = secretKey;
+        this.penaltyFee = penaltyFee;
+        //this.minimumBalance = minimumBalance;
+        this.creationDate = creationDate;
+        this.status = status;
+        this.primaryOwner = primaryOwner;
+        this.secondaryOwner = secondaryOwner;
+    }
 }
+

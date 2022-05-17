@@ -22,7 +22,7 @@ public class RoleService implements RoleServiceInterface {
     private UserRepository userRepository;
 
 
-/*    public Role saveRole(Role role) {
+    public Role saveRole(Role role) {
         log.info("Saving a new role {} to the database", role.getName());
         return roleRepository.save(role);
     }
@@ -32,5 +32,5 @@ public class RoleService implements RoleServiceInterface {
         Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
         userRepository.save(user);
-    }*/
+    }
 }

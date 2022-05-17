@@ -6,6 +6,6 @@ import com.ironhack.BankingSystem.Model.secutiry.Role;
 
 public interface RoleControllerInterface {
 
-   /* void saveRole(Role role);
-    void addRoleToUser(RoleToUserDTO roleToUserDTO);*/
+    void saveRole(Role role);
+    void addRoleToUser(RoleToUserDTO roleToUserDTO);
 }
