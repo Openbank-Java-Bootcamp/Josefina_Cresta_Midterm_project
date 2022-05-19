@@ -3,12 +3,14 @@ package com.ironhack.BankingSystem.Model.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.secutiry.Role;
 import com.ironhack.BankingSystem.Model.secutiry.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -20,11 +22,6 @@ import java.util.Set;
 @Entity
 //@Table(name = "account_holder")
 public class AccountHolder extends User {
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accountHolderId;*/
-
-    //private Date birthDate;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
@@ -52,10 +49,15 @@ public class AccountHolder extends User {
         super(name);
     }
 
+    public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles) {
+        super(id, name, username, password, roles);
+    }
 
-   /* public List<Account> getAccountList() {
-        return accountList;
-    }*/
-
-
+    public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles, Date birthDate, Address primaryAddress, Address mailingAddress, List<Account> accountList) {
+        super(id, name, username, password, roles);
+        this.birthDate = birthDate;
+        this.primaryAddress = primaryAddress;
+        this.mailingAddress = mailingAddress;
+        this.accountList = accountList;
+    }
 }

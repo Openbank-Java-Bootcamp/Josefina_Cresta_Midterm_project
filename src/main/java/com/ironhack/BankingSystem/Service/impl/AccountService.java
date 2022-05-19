@@ -101,11 +101,10 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     public Savings saveNewSavingsAccount(Savings savings) {
-        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
-        if(accountOwner.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "No Account Holder found with ID passed for this new Account");
-        }
+
+        accountHolderRepository.save(savings.getPrimaryOwner());
+        AccountHolder primaryOwner = savings.getPrimaryOwner();
+        primaryOwner.setAccountList(Collections.singletonList(savings));
 
         try {
             Savings newSaving = new Savings(
@@ -123,6 +122,12 @@ public class AccountService implements AccountServiceInterface {
     }
 
     public CreditCard saveNewCreditAccount(CreditCard creditCard) {
+        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(creditCard.getPrimaryOwner().getId());
+        if(accountOwner.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No Account Holder found with ID passed.Let's create a new client ");
+        }
+
         accountHolderRepository.save(creditCard.getPrimaryOwner());
         AccountHolder primaryOwner = creditCard.getPrimaryOwner();
         primaryOwner.setAccountList(Collections.singletonList(creditCard));

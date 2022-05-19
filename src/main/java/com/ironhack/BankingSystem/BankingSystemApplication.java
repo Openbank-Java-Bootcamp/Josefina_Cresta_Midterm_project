@@ -50,20 +50,27 @@ public class BankingSystemApplication {
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
+			userService.saveRole(new Role(null, "ROLE_ACCOUNT_HOLDER"));
+
 
 			userService.saveUser(new User(null, "John Doe", "john", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "James Smith", "james", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new ArrayList<>()));
 
-			userService.addRoleToUser("john", "ROLE_USER");
+			userService.addRoleToUser("john", "ROLE_ACCOUNT_HOLDER");
 			userService.addRoleToUser("james", "ROLE_ADMIN");
 			userService.addRoleToUser("jane", "ROLE_USER");
 			userService.addRoleToUser("chris", "ROLE_ADMIN");
 			userService.addRoleToUser("chris", "ROLE_USER");
 
-			accountHolderService.saveAccountHolder(new AccountHolder("Aiko Tanaka"));
-			accountHolderService.saveAccountHolder(new AccountHolder("Josefina Cresta"));
+
+			userService.saveUser(new AccountHolder(null, "Josefina", "jofi", "1234j", new ArrayList<>()));
+			//accountHolderService.saveAccountHolder(new AccountHolder(null, "Josefina", "jofi", "1234j", new ArrayList<>()));
+			userService.saveUser(new AccountHolder(null, "Maria", "paz", "$2b1234p", new ArrayList<>()));
+
+			userService.addRoleToUser("jofi", "ROLE_ACCOUNT_HOLDER");
+			userService.addRoleToUser("paz", "ROLE_ACCOUNT_HOLDER");
 
 			//accountService.saveNewAccount(new Account(balance1, "A124", accountHolder1, "ANa"));
 			//accountService.saveNewAccount(new Account(balance2, "B456", accountHolder2, "Ale"));

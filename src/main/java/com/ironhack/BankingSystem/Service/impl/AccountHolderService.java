@@ -76,9 +76,7 @@ public class AccountHolderService implements AccountHolderServiceInterface {
         System.out.println("AND NOW HERE");
         Account accountFromDB = accountRepository.findById(accountId).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
-        //if ese account id no esta en su lista de account no puede verlos
-        //System.out.println(accountFromDB.getPrimaryOwner().getId());
-        //System.out.println();
+
         if (accountHolderId == accountFromDB.getPrimaryOwner().getId()){
             System.out.println("The balance of your account with id "+ accountId.toString() + " is");
             System.out.println(accountFromDB.getBalance().toString());
