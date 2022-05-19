@@ -10,4 +10,5 @@ public interface AccountHolderServiceInterface {
     public void updateAccountHolder(Long id, AccountHolder author);
     public void deleteAccountHolder(Long id);
 
+    /*AccountHolder getBalance(Long id);*/
 }

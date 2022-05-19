@@ -1,6 +1,8 @@
 package com.ironhack.BankingSystem.Service.impl;
 
+import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountHolderServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,9 @@ public class AccountHolderService implements AccountHolderServiceInterface {
 
     @Autowired
     private AccountHolderRepository accountHolderRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
 
     //y aca iran los metodos para la third party
@@ -62,4 +67,13 @@ public class AccountHolderService implements AccountHolderServiceInterface {
             accountHolderRepository.delete(foundAccountHolder.get());
         }
     }
+
+/*    @Override
+    public AccountHolder getBalance(Long accountId) {
+        Account accountFromDB = accountRepository.findById(accountId).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+        //if ese account id no esta en su lista de account no puede verlos
+        log.info("Changing balance of {}'s account", accountFromDB.getPrimaryOwner().getName());
+        accountFromDB.getBalance();
+    }*/
 }

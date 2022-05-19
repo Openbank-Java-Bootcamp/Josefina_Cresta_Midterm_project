@@ -1,9 +1,11 @@
 package com.ironhack.BankingSystem.Model.Utils;
 
+import jakarta.persistence.Embeddable;
+
 import java.math.RoundingMode;
 import java.math.BigDecimal;
 import java.util.Currency;
-
+@Embeddable
 public class Money {
 
     private static final Currency USD = Currency.getInstance("USD");
@@ -20,6 +22,11 @@ public class Money {
         this.currency = currency;
         setAmount(amount.setScale(currency.getDefaultFractionDigits(), rounding));
     }
+
+    public Money() {
+        currency = Currency.getInstance("USD");
+    }
+
 
 
     /**

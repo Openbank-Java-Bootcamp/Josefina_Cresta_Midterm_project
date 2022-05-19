@@ -1,7 +1,9 @@
 package com.ironhack.BankingSystem.Controller.impl;
 
 
+import com.ironhack.BankingSystem.Controller.interfaces.UserControllerInterface;
 import com.ironhack.BankingSystem.Model.secutiry.User;
+import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
 import com.ironhack.BankingSystem.Service.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController implements UserControllerInterface {
 
     @Autowired
     private UserServiceInterface userService;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)

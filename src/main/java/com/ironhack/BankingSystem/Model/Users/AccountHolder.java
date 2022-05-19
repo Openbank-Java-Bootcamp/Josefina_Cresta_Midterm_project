@@ -1,5 +1,6 @@
 package com.ironhack.BankingSystem.Model.Users;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.secutiry.User;
@@ -23,6 +24,9 @@ public class AccountHolder extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountHolderId;*/
 
+    //private Date birthDate;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
 
     @Embedded
@@ -47,4 +51,10 @@ public class AccountHolder extends User {
     public AccountHolder(String name) {
         super(name);
     }
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+
 }

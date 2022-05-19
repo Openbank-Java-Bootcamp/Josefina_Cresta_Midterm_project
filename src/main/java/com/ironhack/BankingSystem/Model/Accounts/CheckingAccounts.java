@@ -19,12 +19,14 @@ public class CheckingAccounts extends Account {
             @AttributeOverride(name = "currency", column = @Column(name = "minimumBalance_currency")),
             @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount"))
     })
+    @Embedded
     private Money minimumBalance;
 
     @AttributeOverrides({
             @AttributeOverride(name = "currency", column = @Column(name = "monthlyMaintenanceFee_currency")),
             @AttributeOverride(name = "amount", column = @Column(name = "monthlyMaintenanceFee_amount"))
     })
+    @Embedded
     private Money monthlyMaintenanceFee;
 
 

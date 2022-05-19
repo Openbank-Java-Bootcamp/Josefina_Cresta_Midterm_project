@@ -1,6 +1,8 @@
 package com.ironhack.BankingSystem.Controller.interfaces;
 
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Model.Utils.Money;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface AccountHolderControllerInterface {
 
@@ -9,4 +11,5 @@ public interface AccountHolderControllerInterface {
     public void storeAccountHolder(AccountHolder accountHolder);
     public void updateAccountHolder(Long id, AccountHolder accountHolder);
     public void deleteAccountHolder(Long id);
+    public Money getBalance(Long accountHolderId, Long accountId);
 }

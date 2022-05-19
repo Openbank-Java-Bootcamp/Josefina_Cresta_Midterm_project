@@ -1,8 +1,11 @@
 package com.ironhack.BankingSystem.Service.impl;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
+import com.ironhack.BankingSystem.Repository.Accounts.SavingsRepository;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +24,13 @@ public class AccountService implements AccountServiceInterface {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private SavingsRepository savingsRepository;
+
 
     @Autowired
     private AccountHolderRepository accountHolderRepository;
+
 
     @Override
     public Account saveNewAccount(Account account) {
@@ -37,7 +44,6 @@ public class AccountService implements AccountServiceInterface {
                     account.getBalance(),
                     account.getSecretKey(),
                     account.getPenaltyFee(),
-                    account.getCreationDate(),
                     account.getStatus(),
                     account.getPrimaryOwner(),
                     account.getSecondaryOwner()
@@ -47,6 +53,38 @@ public class AccountService implements AccountServiceInterface {
         }
     }
 
-    //ACa van los metodos que luego llama el controlador
+
+
+    @Override
+    public Savings saveNewSavingsAccount(Savings savings) {
+        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
+        if(accountOwner.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No Account Holder found with ID passed for this new Account");
+        }
+        System.out.println(accountOwner.get().getBirthDate());
+        try {
+            return savingsRepository.save(new Savings(
+                    savings.getBalance(),
+                    savings.getSecretKey(),
+                    savings.getPenaltyFee(),
+                    savings.getStatus(),
+                    savings.getPrimaryOwner(),
+                    savings.getSecondaryOwner()
+            ));
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed Account");
+        }
+    }
+
+
+    public void updateBalance(Long id, Money balance) {
+        Account accountFromDB = accountRepository.findById(id).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+        log.info("Changing balance of {}'s account", accountFromDB.getPrimaryOwner().getName());
+        accountFromDB.setBalance(balance);
+        accountRepository.save(accountFromDB);
+    }
+
 
 }
