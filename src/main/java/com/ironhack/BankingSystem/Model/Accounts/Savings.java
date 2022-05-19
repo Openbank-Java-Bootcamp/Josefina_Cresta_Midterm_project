@@ -39,16 +39,15 @@ public class Savings extends Account {
    @Embedded
     private Money defaultMinimumBalance = new Money(MAX_MINIMUM_BALANCE);
 
-    public Savings(Money balance, String secretKey, Money penaltyFee, Status status,
+    /*public Savings(Money balance, String secretKey, Money penaltyFee, Status status,
                    AccountHolder primaryOwner, String secondaryOwner) {
         super(balance, secretKey, penaltyFee, status, primaryOwner, secondaryOwner);
         this.interestRate = BigDecimal.valueOf(0.0025);
         this.minimumBalance = defaultMinimumBalance;
     }
-
-    public Savings(Money balance, String secretKey, Money penaltyFee, Status status,
-                   AccountHolder primaryOwner, String secondaryOwner) {
-        super(balance, secretKey, penaltyFee, status, primaryOwner, secondaryOwner);
+*/
+    public Savings(Money balance, String secretKey, AccountHolder primaryOwner, String secondaryOwner) {
+        super(balance, secretKey,  primaryOwner, secondaryOwner);
         this.interestRate = BigDecimal.valueOf(0.0025);
         this.minimumBalance = defaultMinimumBalance;
     }

@@ -1,6 +1,7 @@
 package com.ironhack.BankingSystem;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Model.secutiry.Role;
@@ -33,34 +34,34 @@ public class BankingSystemApplication {
 	@Bean
 	CommandLineRunner run(UserService userService, AccountHolderService accountHolderService, AccountService accountService){
 		return args -> {
-			userService.saveRole(new Role(null, "ROLE_CLIENT"));
+			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
-			userService.saveRole(new Role(null, "ROLE_THIRD"));
 
 			userService.saveUser(new User(null, "John Doe", "john", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "James Smith", "james", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new ArrayList<>()));
 
-			userService.addRoleToUser("john", "ROLE_CLIENT");
+			userService.addRoleToUser("john", "ROLE_USER");
 			userService.addRoleToUser("james", "ROLE_ADMIN");
-			userService.addRoleToUser("josefina", "ROLE_CLIENT");
-			userService.addRoleToUser("carlos", "ROLE_ADMIN");
+			userService.addRoleToUser("jane", "ROLE_USER");
+			userService.addRoleToUser("chris", "ROLE_ADMIN");
+			userService.addRoleToUser("chris", "ROLE_USER");
 
 			accountHolderService.saveAccountHolder(new AccountHolder("Aiko Tanaka"));
 			accountHolderService.saveAccountHolder(new AccountHolder("Josefina Cresta"));
 
-			BigDecimal b1 = new BigDecimal("4000255.23");
+			/*BigDecimal b1 = new BigDecimal("4000255.23");
 			Money balance1= new Money(b1);
 			AccountHolder accountHolder1 = new AccountHolder("Aiko Tanaka");
 
 
-			accountService.saveNewAccount(new Account(balance1, "4567ES", accountHolder1, "Raymond"));
+			accountService.saveNewAccount(new Account(balance1, "4567ES",
+					accountHolder1, "Raymond"));
+			accountService.saveNewSavingsAccount(new Savings(balance1,"4567ES",
+					accountHolder1, "Raymond"));
+*/
 
-
-			/*blogPostService.saveBlogPost(new BlogPost(1L, "Boost Your Productivity with 10 Easy Tips", "Productivity - we all want it but it seems ..."));
-			blogPostService.saveBlogPost(new BlogPost(2L, "How to Focus", "Do you ever sit down to work and find yourself ..."));
-			blogPostService.saveBlogPost(new BlogPost(3L, "Learn to Speed Read in 30 Days", "Knowledge, not ability, is the great determiner of ..."));*/
 		};
 	}
 

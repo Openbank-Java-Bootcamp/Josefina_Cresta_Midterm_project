@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)      //SI pongo este quitar el generatedValue
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -66,23 +65,25 @@ public class Account{
         this.secondaryOwner = secondaryOwner;
     }*/
 
+    private BigDecimal penaltyFee_BD = new BigDecimal(40);
+    @Embedded
+    private Money penaltyFee_money = new Money(penaltyFee_BD);
+    public Account() {
+    }
+
     public Account(Money balance, String secretKey, AccountHolder primaryOwner, String secondaryOwner) {
         this.balance = balance;
         this.secretKey = secretKey;
-        this.creationDate = LocalDateTime.now();
+
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
-    }
 
-
-    public void setPenaltyFee(Money penaltyFee) {
-        BigDecimal penaltyFee_BD = new BigDecimal(40);
-        Money penaltyFee_money = new Money(penaltyFee_BD);
+        this.creationDate = LocalDateTime.now();
         this.penaltyFee = penaltyFee_money;
-    }
-
-    public void setStatus(Status status) {
         this.status = Status.ACTIVE;
     }
+
+
+
 }
 

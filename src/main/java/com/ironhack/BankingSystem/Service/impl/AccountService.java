@@ -43,8 +43,6 @@ public class AccountService implements AccountServiceInterface {
             return accountRepository.save(new Account(
                     account.getBalance(),
                     account.getSecretKey(),
-                    account.getPenaltyFee(),
-                    account.getStatus(),
                     account.getPrimaryOwner(),
                     account.getSecondaryOwner()
             ));
@@ -67,8 +65,6 @@ public class AccountService implements AccountServiceInterface {
             return savingsRepository.save(new Savings(
                     savings.getBalance(),
                     savings.getSecretKey(),
-                    savings.getPenaltyFee(),
-                    savings.getStatus(),
                     savings.getPrimaryOwner(),
                     savings.getSecondaryOwner()
             ));
