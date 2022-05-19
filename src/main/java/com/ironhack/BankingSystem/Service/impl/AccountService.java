@@ -1,10 +1,12 @@
 package com.ironhack.BankingSystem.Service.impl;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
+import com.ironhack.BankingSystem.Repository.Accounts.CreditCardRepository;
 import com.ironhack.BankingSystem.Repository.Accounts.SavingsRepository;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountServiceInterface;
@@ -15,6 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,13 +31,16 @@ public class AccountService implements AccountServiceInterface {
     private AccountRepository accountRepository;
     @Autowired
     private SavingsRepository savingsRepository;
+    @Autowired
+    private CreditCardRepository creditCardRepository;
 
 
     @Autowired
     private AccountHolderRepository accountHolderRepository;
 
 
-    @Override
+    //Funciona pero no guarda account Holder ni le agrega a la lista del account holder la account
+     @Override
     public Account saveNewAccount(Account account) {
         Optional<AccountHolder> accountOwner = accountHolderRepository.findById(account.getPrimaryOwner().getId());
         if(accountOwner.isEmpty()){
@@ -53,14 +61,15 @@ public class AccountService implements AccountServiceInterface {
 
 
 
-    @Override
+    //SAVING QUE FUNCIONA
+    /*@Override
     public Savings saveNewSavingsAccount(Savings savings) {
         Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
         if(accountOwner.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No Account Holder found with ID passed for this new Account");
         }
-        System.out.println(accountOwner.get().getBirthDate());
+
         try {
             return savingsRepository.save(new Savings(
                     savings.getBalance(),
@@ -69,7 +78,66 @@ public class AccountService implements AccountServiceInterface {
                     savings.getSecondaryOwner()
             ));
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed Account");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed SAVINGS Account");
+        }
+    }*/
+
+    /*@Override
+    public Savings saveNewSavingsAccount(Savings savings) {
+        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
+        if(accountOwner.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No Account Holder found with ID passed for this new Account");
+        }
+        List <Account> listSavings = new ArrayList<>();
+        listSavings.add(savings);
+        savings.getPrimaryOwner().setAccountList(listSavings);
+        try {
+            return savingsRepository.save(savings);
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed SAVINGS Account");
+        }
+    }*/
+
+    @Override
+    public Savings saveNewSavingsAccount(Savings savings) {
+        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
+        if(accountOwner.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No Account Holder found with ID passed for this new Account");
+        }
+
+        try {
+            Savings newSaving = new Savings(
+                            savings.getBalance(),
+                            savings.getSecretKey(),
+                            savings.getPrimaryOwner(),
+                            savings.getSecondaryOwner()
+                    );
+            savingsRepository.save(newSaving);
+            newSaving.getPrimaryOwner().setAccountList(Collections.singletonList(newSaving));
+            return newSaving;
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed SAVINGS Account");
+        }
+    }
+
+    public CreditCard saveNewCreditAccount(CreditCard creditCard) {
+        accountHolderRepository.save(creditCard.getPrimaryOwner());
+        AccountHolder primaryOwner = creditCard.getPrimaryOwner();
+        primaryOwner.setAccountList(Collections.singletonList(creditCard));
+
+        try {
+            return creditCardRepository.save(new CreditCard(
+                    creditCard.getBalance(),
+                    creditCard.getSecretKey(),
+                    creditCard.getPrimaryOwner(),
+                    creditCard.getSecondaryOwner(),
+                    creditCard.getCreditLimit(),
+                    creditCard.getInterestRate()
+            ));
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed CREDIT Account");
         }
     }
 

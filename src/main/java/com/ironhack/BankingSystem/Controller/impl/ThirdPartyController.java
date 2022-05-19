@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/bank")
 public class ThirdPartyController implements ThirdPartyControllerInterface {
 
     @Autowired

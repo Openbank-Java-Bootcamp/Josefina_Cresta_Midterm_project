@@ -52,9 +52,10 @@ public class AccountHolder extends User {
         super(name);
     }
 
-    public List<Account> getAccountList() {
+
+   /* public List<Account> getAccountList() {
         return accountList;
-    }
+    }*/
 
 
 }

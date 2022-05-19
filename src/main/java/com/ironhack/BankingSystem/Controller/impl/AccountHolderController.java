@@ -32,29 +32,29 @@ public class AccountHolderController implements AccountHolderControllerInterface
     //ACa van los endpoint
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AccountHolder getAccountHolder(@PathVariable Long id){
+    public AccountHolder getAccountHolder(@PathVariable Long id) {
         return accountHolderServiceInterface.getAccountHolderById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void storeAccountHolder(@RequestBody @Valid AccountHolder accountHolder){
+    public void storeAccountHolder(@RequestBody @Valid AccountHolder accountHolder) {
         accountHolderServiceInterface.saveAccountHolder(accountHolder);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateAccountHolder(@PathVariable Long id, @RequestBody @Valid AccountHolder accountHolder){
+    public void updateAccountHolder(@PathVariable Long id, @RequestBody @Valid AccountHolder accountHolder) {
         accountHolderServiceInterface.updateAccountHolder(id, accountHolder);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAccountHolder(@PathVariable Long id){
+    public void deleteAccountHolder(@PathVariable Long id) {
         accountHolderServiceInterface.deleteAccountHolder(id);
     }
 
-    @GetMapping("/balance")
+    /*@GetMapping("/balance")
     @ResponseStatus(HttpStatus.OK)
     public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId, @RequestParam(name = "account_id") Long accountId){
 
@@ -72,6 +72,12 @@ public class AccountHolderController implements AccountHolderControllerInterface
             return account.get().getBalance();
         }else{
         return null;}
+    }*/
+
+    @GetMapping("/balance")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId, @RequestParam(name = "account_id") Long accountId) {
+        System.out.println("IS HERE");
+        return accountHolderServiceInterface.getBalance(accountHolderId, accountId);
     }
 }
-

@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.FetchType.EAGER;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -48,7 +50,7 @@ public class Account{
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
+    @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "account_holder_id")
     private AccountHolder primaryOwner;
 

@@ -1,6 +1,7 @@
 package com.ironhack.BankingSystem;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
@@ -31,8 +32,21 @@ public class BankingSystemApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+
+
 	@Bean
 	CommandLineRunner run(UserService userService, AccountHolderService accountHolderService, AccountService accountService){
+
+		BigDecimal b1 = new BigDecimal("4000255.23");
+		BigDecimal b2 = new BigDecimal("25.23");
+		BigDecimal c2 = new BigDecimal("0.1");
+		BigDecimal c1 = new BigDecimal("150");
+		Money balance1= new Money(b1);
+		Money balance2= new Money(b2);
+		Money limit= new Money(c1);
+		AccountHolder accountHolder1 = new AccountHolder("Ana Luz");
+		AccountHolder accountHolder2 = new AccountHolder("Alejandra cres");
+
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
@@ -51,16 +65,20 @@ public class BankingSystemApplication {
 			accountHolderService.saveAccountHolder(new AccountHolder("Aiko Tanaka"));
 			accountHolderService.saveAccountHolder(new AccountHolder("Josefina Cresta"));
 
-			/*BigDecimal b1 = new BigDecimal("4000255.23");
-			Money balance1= new Money(b1);
-			AccountHolder accountHolder1 = new AccountHolder("Aiko Tanaka");
+			//accountService.saveNewAccount(new Account(balance1, "A124", accountHolder1, "ANa"));
+			//accountService.saveNewAccount(new Account(balance2, "B456", accountHolder2, "Ale"));
+			//accountService.saveNewSavingsAccount(new Savings(balance1, "A124", accountHolder1, "ANa"));
+			//accountService.saveNewCreditAccount(new CreditCard(balance2, "B456",
+			//		accountHolder2, "Ale", limit, c2));
+
+		/*
 
 
 			accountService.saveNewAccount(new Account(balance1, "4567ES",
 					accountHolder1, "Raymond"));
 			accountService.saveNewSavingsAccount(new Savings(balance1,"4567ES",
-					accountHolder1, "Raymond"));
-*/
+					accountHolder1, "Raymond"));*/
+
 
 		};
 	}

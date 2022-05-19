@@ -2,6 +2,7 @@ package com.ironhack.BankingSystem.Service.impl;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountHolderServiceInterface;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -39,7 +41,8 @@ public class AccountHolderService implements AccountHolderServiceInterface {
 
     public void saveAccountHolder(AccountHolder accountHolder) {
         try {
-            accountHolderRepository.save(new AccountHolder(accountHolder.getName()));
+            accountHolderRepository.save(accountHolder);
+            //accountHolderRepository.save(new AccountHolder(accountHolder.getName()));
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed AccountHolder");
         }
@@ -51,8 +54,8 @@ public class AccountHolderService implements AccountHolderServiceInterface {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No AccountHolder found with that ID");
         } else {
             if(!AccountHolder.getName().isEmpty()){
-                foundAccountHolder.get().setName(AccountHolder.getName());
-                accountHolderRepository.save(foundAccountHolder.get());
+                //foundAccountHolder.get().setName(AccountHolder.getName());
+                accountHolderRepository.save(AccountHolder);
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "AccountHolder Name cannot be blank");
             }
@@ -68,12 +71,24 @@ public class AccountHolderService implements AccountHolderServiceInterface {
         }
     }
 
-/*    @Override
-    public AccountHolder getBalance(Long accountId) {
+    @Override
+    public Money getBalance(Long accountHolderId, Long accountId) {
+        System.out.println("AND NOW HERE");
         Account accountFromDB = accountRepository.findById(accountId).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
         //if ese account id no esta en su lista de account no puede verlos
-        log.info("Changing balance of {}'s account", accountFromDB.getPrimaryOwner().getName());
-        accountFromDB.getBalance();
-    }*/
+        //System.out.println(accountFromDB.getPrimaryOwner().getId());
+        //System.out.println();
+        if (accountHolderId == accountFromDB.getPrimaryOwner().getId()){
+            System.out.println("The balance of your account with id "+ accountId.toString() + " is");
+            System.out.println(accountFromDB.getBalance().toString());
+            return accountFromDB.getBalance();
+        }else{
+            System.out.println("You can't see the balance of this account");
+        }
+        Money nulo = new Money(new BigDecimal(0));
+        return nulo;
+    }
+
+
 }

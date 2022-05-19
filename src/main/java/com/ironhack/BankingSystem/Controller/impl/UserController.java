@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/bank")
 public class UserController implements UserControllerInterface {
 
     @Autowired
@@ -30,6 +30,11 @@ public class UserController implements UserControllerInterface {
     @ResponseStatus(HttpStatus.OK)
     public List<User> getUsers(){
         return userService.getUsers();
+    }
+
+    @GetMapping()
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT) // XD
+    public void nothing() {
     }
 
 

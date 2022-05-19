@@ -3,6 +3,7 @@ package com.ironhack.BankingSystem.Controller.impl;
 import com.ironhack.BankingSystem.Controller.interfaces.AccountControllerInterface;
 import com.ironhack.BankingSystem.DTO.AccountBalanceOnlyDTO;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Service.impl.AccountService;
 import com.ironhack.BankingSystem.Service.interfaces.AccountServiceInterface;
@@ -21,8 +22,6 @@ public class AccountController implements AccountControllerInterface {
     private AccountService accountService;
 
 
-
-
     //ACa van los endpoint
 
     //General account
@@ -36,8 +35,14 @@ public class AccountController implements AccountControllerInterface {
     @PostMapping("/newSavings")
     @ResponseStatus(HttpStatus.CREATED)
     public void createSavingsAccount(@RequestBody @Valid Savings savings){
-        System.out.println(savings.getPrimaryOwner());
         accountServiceInterface.saveNewSavingsAccount(savings);
+    }
+
+    @Override
+    @PostMapping("/newCredit")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createCreditAccount(@RequestBody @Valid CreditCard creditCard) {
+        accountServiceInterface.saveNewCreditAccount(creditCard);
     }
 
 

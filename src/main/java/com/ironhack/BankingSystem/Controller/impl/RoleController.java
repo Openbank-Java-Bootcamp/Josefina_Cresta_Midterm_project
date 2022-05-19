@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/bank")
 public class RoleController implements RoleControllerInterface {
 
     @Autowired
@@ -21,7 +21,7 @@ public class RoleController implements RoleControllerInterface {
         userService.saveRole(role);
     }
 
-    @PostMapping("/roles/addtouser")
+    @PostMapping("/roles/addToUser")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addRoleToUser(@RequestBody RoleToUserDTO roleToUserDTO) {
         userService.addRoleToUser(roleToUserDTO.getUsername(), roleToUserDTO.getRoleName());
