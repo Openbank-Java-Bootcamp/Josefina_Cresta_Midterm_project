@@ -14,7 +14,7 @@ public interface AccountServiceInterface {
 
     Savings saveNewSavingsAccount(Savings savings);
     CreditCard saveNewCreditAccount(CreditCard creditCard);
-    CheckingAccounts saveNewCheckingAccount(CheckingAccounts checkingAccounts);
+    Account saveNewCheckingAccount(CheckingAccounts checkingAccounts);
 
     void updateBalance(Long id, Money balance);
 

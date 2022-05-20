@@ -146,6 +146,9 @@ public class AccountHolderService implements AccountHolderServiceInterface {
         Long userId = userRepository.findByUsername(username).getId();
         Long withdrawId = accountHolderRepository.findById(userId).get().getAccountList().get(0).getAccountId();
 
+        System.out.println("USERRRR:"+ userId);
+        System.out.println(withdrawId);
+
         Account withdrawAccountFromDB = accountRepository.findById(withdrawId).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "WithdrawId Account not found"));
         Account targetAccountFromDB = accountRepository.findById(targetId).orElseThrow(()

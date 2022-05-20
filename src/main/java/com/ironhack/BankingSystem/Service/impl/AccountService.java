@@ -1,16 +1,10 @@
 package com.ironhack.BankingSystem.Service.impl;
 
-import com.ironhack.BankingSystem.Model.Accounts.Account;
-import com.ironhack.BankingSystem.Model.Accounts.CheckingAccounts;
-import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
-import com.ironhack.BankingSystem.Model.Accounts.Savings;
+import com.ironhack.BankingSystem.Model.Accounts.*;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.AgeCalculator;
 import com.ironhack.BankingSystem.Model.Utils.Money;
-import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
-import com.ironhack.BankingSystem.Repository.Accounts.CheckingAccountsRepository;
-import com.ironhack.BankingSystem.Repository.Accounts.CreditCardRepository;
-import com.ironhack.BankingSystem.Repository.Accounts.SavingsRepository;
+import com.ironhack.BankingSystem.Repository.Accounts.*;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
 import com.ironhack.BankingSystem.Repository.security.UserRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountServiceInterface;
@@ -47,6 +41,9 @@ public class AccountService implements AccountServiceInterface {
 
     @Autowired
     private CheckingAccountsRepository checkingAccountsRepository;
+
+    @Autowired
+    private StudentCheckingRepository studentCheckingRepository;
 
     @Autowired
     private AccountHolderRepository accountHolderRepository;
@@ -166,37 +163,39 @@ public class AccountService implements AccountServiceInterface {
 
 
     @Override
-    public CheckingAccounts saveNewCheckingAccount(CheckingAccounts checkingAccount) {
+    public Account saveNewCheckingAccount(CheckingAccounts checkingAccount) {
         Optional<AccountHolder> accountOwner = accountHolderRepository.findById(checkingAccount.getPrimaryOwner().getId());
         if(accountOwner.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No Account Holder found with ID passed. Let's create a new client ");
         }
-
-         AccountHolder accountHolder =  checkingAccount.getPrimaryOwner();
-        //Si es menor de 24 que cree una de estudiante
-        LocalDateTime birthDate = accountHolder.getBirthDate();
-        int age = calculateAge(birthDate, LocalDateTime.now());
-
-        System.out.println("AGEeeeeeee:: " + age);
-        if  (age < 24) {
-            System.out.println("LEt create a student account");
-
-        }
-
         userService.saveUser(checkingAccount.getPrimaryOwner());
-        //accountHolderRepository.save(creditCard.getPrimaryOwner());
         AccountHolder primaryOwner = checkingAccount.getPrimaryOwner();
         primaryOwner.setAccountList(Collections.singletonList(checkingAccount));
 
-        try {
+        //Si es menor de 24 que cree una de estudiante
+        LocalDateTime birthDate = primaryOwner.getBirthDate();
+        int age = calculateAge(birthDate, LocalDateTime.now());
+
+        System.out.println("AGEeeeeeee:: " + age);
+        try{
+            if  (age < 24) {
+            System.out.println("LEt create a student account");
+            return studentCheckingRepository.save(new StudentChecking(
+                    checkingAccount.getBalance(),
+                    checkingAccount.getSecretKey(),
+                    checkingAccount.getPrimaryOwner(),
+                    checkingAccount.getSecondaryOwner()
+            ));
+        }else{
+                System.out.println("LEt create a simple CHACKING account");
             return checkingAccountsRepository.save(new CheckingAccounts(
                     checkingAccount.getBalance(),
                     checkingAccount.getSecretKey(),
                     checkingAccount.getPrimaryOwner(),
                     checkingAccount.getSecondaryOwner()
             ));
-        } catch (Exception e){
+        } }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed CREDIT Account");
         }
     }
