@@ -14,7 +14,7 @@ public interface AccountHolderServiceInterface {
 
     Money getBalance(Long accountId, Long id);
 
-    public void transaction(Long accountHolderId, Long targetId, TransactionDTO transactionDTO);
+    public void transaction(Long targetId, TransactionDTO transactionDTO);
 
     /*AccountHolder getBalance(Long id);*/
 }

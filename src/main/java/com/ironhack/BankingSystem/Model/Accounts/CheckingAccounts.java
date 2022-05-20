@@ -1,11 +1,16 @@
 package com.ironhack.BankingSystem.Model.Accounts;
 
+import com.ironhack.BankingSystem.Enum.Status;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -20,14 +25,21 @@ public class CheckingAccounts extends Account {
             @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount"))
     })
     @Embedded
-    private Money minimumBalance;
+    private Money minimumBalance=new Money(new BigDecimal(250));
 
     @AttributeOverrides({
             @AttributeOverride(name = "currency", column = @Column(name = "monthlyMaintenanceFee_currency")),
             @AttributeOverride(name = "amount", column = @Column(name = "monthlyMaintenanceFee_amount"))
     })
     @Embedded
-    private Money monthlyMaintenanceFee;
+    private Money monthlyMaintenanceFee = new Money(new BigDecimal(12));;
+
+    //minumun of 250 en balance y 12 en maintenca
 
 
+    public CheckingAccounts(Money balance, String secretKey, AccountHolder primaryOwner, String secondaryOwner) {
+        super(balance, secretKey,  primaryOwner, secondaryOwner);
+        this.minimumBalance = minimumBalance;
+        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+    }
 }

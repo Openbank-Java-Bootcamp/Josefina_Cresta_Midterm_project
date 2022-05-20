@@ -1,6 +1,7 @@
 package com.ironhack.BankingSystem.Service.interfaces;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.CheckingAccounts;
 import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Utils.Money;
@@ -13,7 +14,9 @@ public interface AccountServiceInterface {
 
     Savings saveNewSavingsAccount(Savings savings);
     CreditCard saveNewCreditAccount(CreditCard creditCard);
+    CheckingAccounts saveNewCheckingAccount(CheckingAccounts checkingAccounts);
 
     void updateBalance(Long id, Money balance);
+
 
 }

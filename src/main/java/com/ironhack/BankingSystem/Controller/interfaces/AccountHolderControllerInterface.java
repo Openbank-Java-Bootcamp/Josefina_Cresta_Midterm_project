@@ -16,5 +16,5 @@ public interface AccountHolderControllerInterface {
     public void deleteAccountHolder(Long id);
     public Money getBalance(Long accountHolderId, Long accountId);
 
-    public void makeTransaction(Long accountHolderId, Long targetId, TransactionDTO transactionDTO);
+    public void makeTransaction(Long targetId, TransactionDTO transactionDTO);
 }

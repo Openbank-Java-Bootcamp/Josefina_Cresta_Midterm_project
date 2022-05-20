@@ -2,6 +2,8 @@ package com.ironhack.BankingSystem.Model.Users;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.secutiry.Role;
 import com.ironhack.BankingSystem.Model.secutiry.User;
@@ -10,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +27,9 @@ import java.util.Set;
 //@Table(name = "account_holder")
 public class AccountHolder extends User {
 
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date birthDate;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime birthDate;
 
     @Embedded
     @Column(name = "primary_address")
@@ -53,7 +58,9 @@ public class AccountHolder extends User {
         super(id, name, username, password, roles);
     }
 
-    public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles, Date birthDate, Address primaryAddress, Address mailingAddress, List<Account> accountList) {
+    public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles,
+                         LocalDateTime birthDate, Address primaryAddress, Address mailingAddress, List<Account> accountList)
+    {
         super(id, name, username, password, roles);
         this.birthDate = birthDate;
         this.primaryAddress = primaryAddress;

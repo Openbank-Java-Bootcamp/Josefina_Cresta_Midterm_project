@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(POST, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(PUT, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNT_HOLDER");
         http.authorizeRequests().antMatchers(DELETE, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNT_HOLDER");
-        http.authorizeRequests().antMatchers(PATCH, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNT_HOLDER");
+        http.authorizeRequests().antMatchers(PATCH, "/bank/accountholders/transactions").hasAnyAuthority( "ROLE_ACCOUNT_HOLDER");
         /*http.authorizeRequests().antMatchers(GET, "/api/*").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/api/*").hasAnyAuthority("ROLE_ADMIN");*/
         http.authorizeRequests().anyRequest().authenticated();

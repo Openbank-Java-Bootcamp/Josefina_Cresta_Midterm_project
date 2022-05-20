@@ -3,6 +3,7 @@ package com.ironhack.BankingSystem.Controller.impl;
 import com.ironhack.BankingSystem.Controller.interfaces.AccountControllerInterface;
 import com.ironhack.BankingSystem.DTO.AccountBalanceOnlyDTO;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.CheckingAccounts;
 import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Service.impl.AccountService;
@@ -43,6 +44,13 @@ public class AccountController implements AccountControllerInterface {
     @ResponseStatus(HttpStatus.CREATED)
     public void createCreditAccount(@RequestBody @Valid CreditCard creditCard) {
         accountServiceInterface.saveNewCreditAccount(creditCard);
+    }
+
+    @Override
+    @PostMapping("/newChecking")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createCheckingAccount(@RequestBody @Valid CheckingAccounts checkingAccounts) {
+        accountServiceInterface.saveNewCheckingAccount(checkingAccounts);
     }
 
 

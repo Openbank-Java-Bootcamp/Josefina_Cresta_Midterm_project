@@ -13,6 +13,8 @@ import com.ironhack.BankingSystem.Service.interfaces.AccountHolderServiceInterfa
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -82,11 +84,21 @@ public class AccountHolderController implements AccountHolderControllerInterface
     }
 
 
-    @PatchMapping("/transactions")
+    //FUnciona
+    /*@PatchMapping("/transactions")
     @ResponseStatus(HttpStatus.OK)
     public void makeTransaction(@RequestParam(name = "account_id") Long accountHolderId,
                                @RequestParam(name = "target_id") Long targetId,
                                @RequestBody @Valid TransactionDTO transactionDTO) {
         accountHolderServiceInterface.transaction(accountHolderId, targetId, transactionDTO);
+    }*/
+
+
+
+    @PatchMapping("/transactions")
+    @ResponseStatus(HttpStatus.OK)
+    public void makeTransaction(@RequestParam(name = "target_id") Long targetId,
+                                @RequestBody @Valid TransactionDTO transactionDTO) {
+        accountHolderServiceInterface.transaction(targetId, transactionDTO);
     }
 }

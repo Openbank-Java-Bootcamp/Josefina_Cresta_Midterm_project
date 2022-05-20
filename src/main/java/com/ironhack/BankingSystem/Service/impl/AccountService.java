@@ -1,26 +1,37 @@
 package com.ironhack.BankingSystem.Service.impl;
 
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Accounts.CheckingAccounts;
 import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
+import com.ironhack.BankingSystem.Model.Utils.AgeCalculator;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
+import com.ironhack.BankingSystem.Repository.Accounts.CheckingAccountsRepository;
 import com.ironhack.BankingSystem.Repository.Accounts.CreditCardRepository;
 import com.ironhack.BankingSystem.Repository.Accounts.SavingsRepository;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
+import com.ironhack.BankingSystem.Repository.security.UserRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountServiceInterface;
+import com.ironhack.BankingSystem.Service.interfaces.UserServiceInterface;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.ironhack.BankingSystem.Service.impl.UserService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static com.ironhack.BankingSystem.Model.Utils.AgeCalculator.calculateAge;
 
 @Service
 @RequiredArgsConstructor
@@ -34,9 +45,14 @@ public class AccountService implements AccountServiceInterface {
     @Autowired
     private CreditCardRepository creditCardRepository;
 
+    @Autowired
+    private CheckingAccountsRepository checkingAccountsRepository;
 
     @Autowired
     private AccountHolderRepository accountHolderRepository;
+
+    @Autowired
+    private UserServiceInterface userService;
 
 
     //Funciona pero no guarda account Holder ni le agrega a la lista del account holder la account
@@ -102,7 +118,8 @@ public class AccountService implements AccountServiceInterface {
     @Override
     public Savings saveNewSavingsAccount(Savings savings) {
 
-        accountHolderRepository.save(savings.getPrimaryOwner());
+        //accountHolderRepository.save(savings.getPrimaryOwner());
+        userService.saveUser(savings.getPrimaryOwner());
         AccountHolder primaryOwner = savings.getPrimaryOwner();
         primaryOwner.setAccountList(Collections.singletonList(savings));
 
@@ -128,7 +145,8 @@ public class AccountService implements AccountServiceInterface {
                     "No Account Holder found with ID passed.Let's create a new client ");
         }
 
-        accountHolderRepository.save(creditCard.getPrimaryOwner());
+        userService.saveUser(creditCard.getPrimaryOwner());
+        //accountHolderRepository.save(creditCard.getPrimaryOwner());
         AccountHolder primaryOwner = creditCard.getPrimaryOwner();
         primaryOwner.setAccountList(Collections.singletonList(creditCard));
 
@@ -145,6 +163,58 @@ public class AccountService implements AccountServiceInterface {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed CREDIT Account");
         }
     }
+
+
+    @Override
+    public CheckingAccounts saveNewCheckingAccount(CheckingAccounts checkingAccount) {
+        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(checkingAccount.getPrimaryOwner().getId());
+        if(accountOwner.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No Account Holder found with ID passed. Let's create a new client ");
+        }
+
+         AccountHolder accountHolder =  checkingAccount.getPrimaryOwner();
+        //Si es menor de 24 que cree una de estudiante
+        LocalDateTime birthDate = accountHolder.getBirthDate();
+        int age = calculateAge(birthDate, LocalDateTime.now());
+
+        System.out.println("AGEeeeeeee:: " + age);
+        if  (age < 24) {
+            System.out.println("LEt create a student account");
+
+        }
+
+        userService.saveUser(checkingAccount.getPrimaryOwner());
+        //accountHolderRepository.save(creditCard.getPrimaryOwner());
+        AccountHolder primaryOwner = checkingAccount.getPrimaryOwner();
+        primaryOwner.setAccountList(Collections.singletonList(checkingAccount));
+
+        try {
+            return checkingAccountsRepository.save(new CheckingAccounts(
+                    checkingAccount.getBalance(),
+                    checkingAccount.getSecretKey(),
+                    checkingAccount.getPrimaryOwner(),
+                    checkingAccount.getSecondaryOwner()
+            ));
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed CREDIT Account");
+        }
+    }
+
+
+    ////////////////////////////////
+
+/*    public static int calculateAge(LocalDateTime birthDate, LocalDateTime currentDate) {
+        System.out.println(birthDate);
+        System.out.println(currentDate);
+        if ((birthDate != null) && (currentDate != null)) {
+            return Period.between(LocalDate.from(birthDate), LocalDate.from(currentDate)).getYears();
+        } else {
+            return 0;
+        }
+    }*/
+
+    ///////////////////////////////
 
 
     public void updateBalance(Long id, Money balance) {
