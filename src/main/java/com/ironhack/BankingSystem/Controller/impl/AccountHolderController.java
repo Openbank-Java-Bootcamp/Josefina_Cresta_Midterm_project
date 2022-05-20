@@ -2,6 +2,7 @@ package com.ironhack.BankingSystem.Controller.impl;
 
 import com.ironhack.BankingSystem.Controller.interfaces.AccountControllerInterface;
 import com.ironhack.BankingSystem.Controller.interfaces.AccountHolderControllerInterface;
+import com.ironhack.BankingSystem.DTO.TransactionDTO;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/accountholders")
+@RequestMapping("bank/accountholders")
 public class AccountHolderController implements AccountHolderControllerInterface {
     @Autowired
     private AccountHolderServiceInterface accountHolderServiceInterface;
@@ -77,7 +78,15 @@ public class AccountHolderController implements AccountHolderControllerInterface
     @GetMapping("/balance")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId, @RequestParam(name = "account_id") Long accountId) {
-        System.out.println("IS HERE");
         return accountHolderServiceInterface.getBalance(accountHolderId, accountId);
+    }
+
+
+    @PatchMapping("/transactions")
+    @ResponseStatus(HttpStatus.OK)
+    public void makeTransaction(@RequestParam(name = "account_id") Long accountHolderId,
+                               @RequestParam(name = "target_id") Long targetId,
+                               @RequestBody @Valid TransactionDTO transactionDTO) {
+        accountHolderServiceInterface.transaction(accountHolderId, targetId, transactionDTO);
     }
 }

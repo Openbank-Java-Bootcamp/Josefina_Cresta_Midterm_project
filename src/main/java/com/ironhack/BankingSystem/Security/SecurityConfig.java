@@ -16,8 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -43,6 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/bank/login/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/bank/accounts/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(PATCH, "/bank/accounts/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/bank/accountholders/balance").hasAnyAuthority("ROLE_ACCOUNT_HOLDER");
+        http.authorizeRequests().antMatchers(POST, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(PUT, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNT_HOLDER");
+        http.authorizeRequests().antMatchers(DELETE, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNT_HOLDER");
+        http.authorizeRequests().antMatchers(PATCH, "/bank/accountholders/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNT_HOLDER");
         /*http.authorizeRequests().antMatchers(GET, "/api/*").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/api/*").hasAnyAuthority("ROLE_ADMIN");*/
         http.authorizeRequests().anyRequest().authenticated();

@@ -1,5 +1,6 @@
 package com.ironhack.BankingSystem.Service.interfaces;
 
+import com.ironhack.BankingSystem.DTO.TransactionDTO;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 
@@ -12,6 +13,8 @@ public interface AccountHolderServiceInterface {
     public void deleteAccountHolder(Long id);
 
     Money getBalance(Long accountId, Long id);
+
+    public void transaction(Long accountHolderId, Long targetId, TransactionDTO transactionDTO);
 
     /*AccountHolder getBalance(Long id);*/
 }

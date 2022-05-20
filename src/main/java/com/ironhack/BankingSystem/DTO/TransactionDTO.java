@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountBalanceOnlyDTO {
+public class TransactionDTO {
 
     @AttributeOverrides({
-            @AttributeOverride(name = "currency", column = @Column(name = "balance_DTO_currency")),
-            @AttributeOverride(name = "amount", column = @Column(name = "balance_DTO_amount"))
+            @AttributeOverride(name = "currency", column = @Column(name = "transaction_currency")),
+            @AttributeOverride(name = "amount", column = @Column(name = "transaction_amount"))
     })
     @Embedded
-    private Money balance;
-
+    private Money transactionAmount;
 
 }
+

@@ -1,5 +1,6 @@
 package com.ironhack.BankingSystem.Service.impl;
 
+import com.ironhack.BankingSystem.DTO.TransactionDTO;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
@@ -73,7 +74,6 @@ public class AccountHolderService implements AccountHolderServiceInterface {
 
     @Override
     public Money getBalance(Long accountHolderId, Long accountId) {
-        System.out.println("AND NOW HERE");
         Account accountFromDB = accountRepository.findById(accountId).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
 
@@ -87,6 +87,37 @@ public class AccountHolderService implements AccountHolderServiceInterface {
         Money nulo = new Money(new BigDecimal(0));
         return nulo;
     }
+
+
+    @Override
+    public void transaction(Long withdrawId, Long targetId, TransactionDTO transactionDTO) {
+        Account withdrawAccountFromDB = accountRepository.findById(withdrawId).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "WithdrawId Account not found"));
+        Account targetAccountFromDB = accountRepository.findById(targetId).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Target Account not found"));
+
+        BigDecimal transactionAmount = transactionDTO.getTransactionAmount().getAmount();
+        BigDecimal withdrawBalanceAmount = withdrawAccountFromDB.getBalance().getAmount();
+        BigDecimal targetBalanceAmount = targetAccountFromDB.getBalance().getAmount();
+
+        if (withdrawAccountFromDB.getBalance().getAmount().compareTo(transactionAmount)==1){
+
+            BigDecimal newBalanceAmountWithdraw= withdrawBalanceAmount.subtract(transactionAmount);
+            withdrawAccountFromDB.setBalance(new Money(newBalanceAmountWithdraw));
+            accountRepository.save(withdrawAccountFromDB);
+
+            BigDecimal newBalanceAmountTarget= targetBalanceAmount.add(transactionAmount);
+            targetAccountFromDB.setBalance(new Money(newBalanceAmountTarget));
+            accountRepository.save(withdrawAccountFromDB);
+
+            System.out.println("TRANSACTION DONE");
+        }else{
+            throw new UnsupportedOperationException("Not enough funds to carry out the transaction");
+        }
+
+    }
+
+
 
 
 }

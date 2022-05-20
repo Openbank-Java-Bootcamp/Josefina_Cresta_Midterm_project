@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("bank/accounts")
 public class AccountController implements AccountControllerInterface {
     @Autowired
     private AccountServiceInterface accountServiceInterface;
