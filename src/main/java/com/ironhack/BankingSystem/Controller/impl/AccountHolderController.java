@@ -99,7 +99,6 @@ public class AccountHolderController implements AccountHolderControllerInterface
     @ResponseStatus(HttpStatus.OK)
     public void makeTransaction(@RequestParam(name = "target_id") Long targetId,
                                 @RequestBody @Valid TransactionDTO transactionDTO) {
-        System.out.println("HEREE");
         accountHolderServiceInterface.transaction(targetId, transactionDTO);
     }
 }

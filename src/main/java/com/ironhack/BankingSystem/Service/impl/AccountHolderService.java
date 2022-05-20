@@ -146,7 +146,7 @@ public class AccountHolderService implements AccountHolderServiceInterface {
         Long userId = userRepository.findByUsername(username).getId();
         Long withdrawId = accountHolderRepository.findById(userId).get().getAccountList().get(0).getAccountId();
 
-        System.out.println("USERRRR:"+ userId);
+
         System.out.println(withdrawId);
 
         Account withdrawAccountFromDB = accountRepository.findById(withdrawId).orElseThrow(()
@@ -167,8 +167,7 @@ public class AccountHolderService implements AccountHolderServiceInterface {
             BigDecimal newBalanceAmountTarget= targetBalanceAmount.add(transactionAmount);
             targetAccountFromDB.setBalance(new Money(newBalanceAmountTarget));
             accountRepository.save(withdrawAccountFromDB);
-
-            System.out.println("TRANSACTION DONE");
+            log.info("TRANSACTION DONE", username);
         }else{
             throw new UnsupportedOperationException("Not enough funds to carry out the transaction");
         }
