@@ -1,6 +1,6 @@
 #  BANKING SYSTEM 🏦🗝💸
 
-![imagen_intro](img/imagen_intro.png)
+![imagen_intro](img/HELP.jpeg)
 
 ---
 
@@ -25,7 +25,7 @@ This bank have 4 types of accounts:
 In the bank there are 3 types of person: Admins and AccountHolders and Thirdparty.
 It is possible to see the activities allowed for each type of person in the following case diagram.
 
-![imagen_intro](img/imagen_intro.png)
+![imagen_intro](img/casediag.png)
 
 # API Endpoint & Methods
 
