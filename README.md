@@ -25,7 +25,7 @@ This bank have 4 types of accounts:
 In the bank there are 3 types of person: Admins and AccountHolders and Thirdparty.
 It is possible to see the activities allowed for each type of person in the following case diagram.
 
-![imagen_intro](img/imagen_intro.png)
+![imagen_intro](img/caseDiagram.png)
 
 # API Endpoint & Methods
 
@@ -59,7 +59,7 @@ Used to collect a Bearer Token for a registered User.
 }
 ```
 
-## Success Response
+**Success Response**
 
 **Code** : `200 OK`
 
@@ -71,7 +71,7 @@ Used to collect a Bearer Token for a registered User.
 }
 ```
 
-## Error Response
+**Error Response**
 
 **Condition** : If 'username' and 'password' combination is wrong.
 
@@ -86,7 +86,8 @@ Used to collect a Bearer Token for a registered User.
     ]
 }
 ```
-
+---
+---
 
 Banking workers (Admins) can create the three types of accounts. 
 with the followings endpoints:
@@ -141,7 +142,60 @@ Provide all info of Account to be created.
 }
 ```
 
-## Success Response
+**Success Response**
 
 **Code** : `201 CREATED`
 
+The new account is added to the bank's database.
+
+---
+---
+
+
+# Credit Card Accounts
+
+Used to create a new Credit Card account for a registered or not registered (but will create a new) client.
+
+**URL** : `/bank/accounts/newCredit`
+
+**Method** : `POST`
+
+**Auth required** : YES (Bearer Token)
+
+**Data constraints**
+
+Provide all info of Account to be created.
+
+**Data example**
+
+```json
+{
+    "balance": {
+        "amount":12345,
+        "currency":"USD"
+    },
+    "secretKey": "LALi12 ",
+    "primaryOwner":  {
+        "id": 6,
+        "name": "Lalita",
+        "username": "TheOne",
+        "password": "POp",
+        "roles": [],
+        "birthDate": "2000-01-13",
+        "primaryAddress": null,
+        "mailingAddress": null
+    },
+    "secondaryOwner" : "Peter",
+    "creditLimit":{
+        "amount" : 233,
+        "currency": "EUR"
+    },
+    "interestRate": 0.15
+}
+```
+
+**Success Response**
+
+**Code** : `201 CREATED`
+
+The new account is added to the bank's database.
