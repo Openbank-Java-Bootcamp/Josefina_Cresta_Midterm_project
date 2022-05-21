@@ -54,8 +54,8 @@ public class AccountHolder extends User {
         super(name);
     }
 
-    public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles) {
-        super(id, name, username, password, roles);
+    public AccountHolder(String name, String username, String password, Collection<Role> roles) {
+        super(name, username, password, roles);
     }
 
     public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles,

@@ -73,9 +73,9 @@ public class BankingSystemApplication {
 				userService.addRoleToUser("chris", "ROLE_USER");
 
 
-				userService.saveUser(new AccountHolder(null, "Josefina", "jofi", "1234j", new ArrayList<>()));
+				userService.saveUser(new AccountHolder("Josefina", "jofi", "1234j", new ArrayList<>()));
 				//accountHolderService.saveAccountHolder(new AccountHolder(null, "Josefina", "jofi", "1234j", new ArrayList<>()));
-				userService.saveUser(new AccountHolder(null, "Maria", "paz", "$2b1234p", new ArrayList<>()));
+				userService.saveUser(new AccountHolder( "Maria", "paz", "$2b1234p", new ArrayList<>()));
 
 				userService.addRoleToUser("jofi", "ROLE_ACCOUNT_HOLDER");
 				userService.addRoleToUser("paz", "ROLE_ACCOUNT_HOLDER");
