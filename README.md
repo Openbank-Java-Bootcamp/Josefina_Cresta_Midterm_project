@@ -27,7 +27,7 @@ It is possible to see the activities allowed for each type of person in the foll
 
 In order work in the bank system, the users have to login:
 
-<p style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;">
+<div style="background: red" markdown=1>
 Login
 </p>
 
