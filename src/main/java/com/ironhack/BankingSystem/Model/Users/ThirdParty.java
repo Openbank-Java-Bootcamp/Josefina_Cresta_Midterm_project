@@ -1,7 +1,6 @@
 package com.ironhack.BankingSystem.Model.Users;
 
 import com.ironhack.BankingSystem.Model.Utils.ShaHash;
-import com.ironhack.BankingSystem.Model.secutiry.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

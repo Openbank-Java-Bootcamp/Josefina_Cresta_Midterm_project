@@ -47,7 +47,8 @@ public class AccountHolderController implements AccountHolderControllerInterface
 
     @GetMapping("/balance")
     @ResponseStatus(HttpStatus.OK)
-    public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId, @RequestParam(name = "account_id") Long accountId) {
+    public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId,
+                            @RequestParam(name = "account_id") Long accountId) {
         return accountHolderServiceInterface.getBalance(accountHolderId, accountId);
     }
 

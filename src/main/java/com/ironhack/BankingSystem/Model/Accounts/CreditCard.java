@@ -40,14 +40,12 @@ public class CreditCard extends Account {
     private Money defaultCreditLimit = new Money(MAX_CREDIT_LIMIT);
 
 
-
     public CreditCard(Money balance, String secretKey, AccountHolder primaryOwner, String secondaryOwner,
                       Money creditLimit, BigDecimal interestRate) {
         super(balance, secretKey, primaryOwner, secondaryOwner);
         this.creditLimit = defaultCreditLimit;
         this.interestRate = BigDecimal.valueOf(0.2);
     }
-
 
     public void setCreditLimit(Money creditLimit){
         if ( creditLimit.getAmount().compareTo(BigDecimal.valueOf(100))==-1 ||

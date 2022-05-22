@@ -1,17 +1,13 @@
 package com.ironhack.BankingSystem.Model.Accounts;
 
-import com.ironhack.BankingSystem.Enum.Status;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Data

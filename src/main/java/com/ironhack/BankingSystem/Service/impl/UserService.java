@@ -1,7 +1,6 @@
 package com.ironhack.BankingSystem.Service.impl;
 
 
-import com.ironhack.BankingSystem.Model.Users.Admin;
 import com.ironhack.BankingSystem.Model.secutiry.Role;
 import com.ironhack.BankingSystem.Model.secutiry.User;
 import com.ironhack.BankingSystem.Repository.security.RoleRepository;
@@ -47,7 +46,8 @@ public class UserService implements UserServiceInterface, UserDetailsService {
             user.getRoles().forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority(role.getName()));
             });
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                    user.getPassword(), authorities);
         }
     }
 
@@ -58,13 +58,12 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         return userRepository.save(user);
     }
 
-    @Override
+    /*@Override
     public User saveAdmin(Admin admin) {
         log.info("Saving new admin {} to the database", admin.getName());
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         return userRepository.save(admin);
-    }
-
+    }*/
 
 
    @Override

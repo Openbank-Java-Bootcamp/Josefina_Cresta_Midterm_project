@@ -9,11 +9,8 @@ public interface AccountHolderServiceInterface {
     public void saveAccountHolder(AccountHolder author);
     public void updateAccountHolder(Long id, AccountHolder author);
     public void deleteAccountHolder(Long id);
-
     Money getBalance(Long accountId, Long id);
-
     public void transaction(Long targetId, TransactionDTO transactionDTO);
-
     public void transactionTo(Long accountHolderId, Long targetId, TransactionDTO transactionDTO);
 
 

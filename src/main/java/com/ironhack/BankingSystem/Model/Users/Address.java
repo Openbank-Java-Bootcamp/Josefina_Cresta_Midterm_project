@@ -1,6 +1,5 @@
 package com.ironhack.BankingSystem.Model.Users;
 
-
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;

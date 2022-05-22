@@ -27,5 +27,4 @@ public class RoleController implements RoleControllerInterface {
         userService.addRoleToUser(roleToUserDTO.getUsername(), roleToUserDTO.getRoleName());
     }
 
-
 }

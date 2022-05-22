@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -123,14 +124,15 @@ class AccountControllerTest {
 
 
     @Test
-    void updateProduct_ProductWithNonExistingId_NotFound() throws Exception {
+    void createStudentAccount() throws Exception {
+        accountHolder2.setBirthDate(LocalDateTime.parse("2004-01-13"));
         CheckingAccounts checkingAccounts =new CheckingAccounts(balance2, "B456",
                 accountHolder2, "Ale");
         String body = objectMapper.writeValueAsString(checkingAccounts);
-        MvcResult mvcResult = mockMvc.perform(post("bank/accounts/balance/{id}", 30)
+        MvcResult mvcResult = mockMvc.perform(post("bank/accounts/newChecking")
                 .content(body)
                 .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isNotFound()).andReturn();
+        ).andExpect(status().isCreated()).andReturn();
     }
 
 }

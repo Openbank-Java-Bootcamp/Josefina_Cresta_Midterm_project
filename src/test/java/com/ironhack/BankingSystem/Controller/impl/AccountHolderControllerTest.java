@@ -1,6 +1,8 @@
 package com.ironhack.BankingSystem.Controller.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ironhack.BankingSystem.DTO.TransactionDTO;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.Accounts.CheckingAccounts;
 import com.ironhack.BankingSystem.Model.Accounts.CreditCard;
@@ -120,17 +122,50 @@ class AccountHolderControllerTest {
 
     @Test
     void getBalance_Successful() throws Exception {
-        MvcResult result = mockMvc.perform(get("bank/balance/"))
+        MvcResult result = mockMvc.perform(get("bank/accountholders/balance/"))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(result.getResponse().getContentAsString().contains("Assorted Root Vegetable Seed Packet"));
     }
 
 
     @Test
-    void makeTransaction() {
+    void makeTransaction_fromSavingAccounts() throws Exception {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        Savings savingsAccount = new Savings(balance1, "A124", accountHolder1, "ANa");
+        transactionDTO.setTransactionAmount(new Money(BigDecimal.valueOf(1000)));
+        Money balanceBefore = savingsAccount.getBalance();
+        String body = objectMapper.writeValueAsString(transactionDTO);
+        mockMvc.perform(patch("bank/accountholders/transactions").content(body)
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent()).andReturn();
+        assertEquals(savingsAccount.getBalance(), balanceBefore.decreaseAmount(transactionDTO.getTransactionAmount()));
     }
 
     @Test
-    void testMakeTransaction() {
+    void makeTransaction_fromCreditAccounts() throws Exception {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        CreditCard creditCard =  new CreditCard(balance2, "B456", accountHolder2,
+                "Ale", limit, c2);
+        transactionDTO.setTransactionAmount(new Money(BigDecimal.valueOf(1000)));
+        Money balanceBefore = creditCard.getBalance();
+        String body = objectMapper.writeValueAsString(transactionDTO);
+        mockMvc.perform(patch("bank/accountholders/transactions").content(body)
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent()).andReturn();
+        assertEquals(creditCard.getBalance(), balanceBefore.decreaseAmount(transactionDTO.getTransactionAmount()));
     }
+
+    @Test
+    void makeTransaction_fromCheckingAccounts() throws Exception {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        CheckingAccounts checkingAccounts =  new CheckingAccounts(balance2, "B456",
+                accountHolder2, "Ale");
+        transactionDTO.setTransactionAmount(new Money(BigDecimal.valueOf(1000)));
+        Money balanceBefore = checkingAccounts.getBalance();
+        String body = objectMapper.writeValueAsString(transactionDTO);
+        mockMvc.perform(patch("bank/accountholders/transactions").content(body)
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent()).andReturn();
+        assertEquals(checkingAccounts.getBalance(), balanceBefore.decreaseAmount(transactionDTO.getTransactionAmount()));
+    }
+
+
+
 }

@@ -4,7 +4,6 @@ import com.ironhack.BankingSystem.DTO.TransactionDTO;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
-import com.ironhack.BankingSystem.Model.secutiry.User;
 import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
 import com.ironhack.BankingSystem.Repository.security.UserRepository;
@@ -174,9 +173,6 @@ public class AccountHolderService implements AccountHolderServiceInterface {
         }
 
     }
-
-
-
 
 
 }

@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface AccountHolderControllerInterface {
 
-    //Aca van las signutere de los metodos que defino en el controller
     public AccountHolder getAccountHolder(Long id);
     public void storeAccountHolder(AccountHolder accountHolder);
     public void updateAccountHolder(Long id, AccountHolder accountHolder);
     public void deleteAccountHolder(Long id);
     public Money getBalance(Long accountHolderId, Long accountId);
-
     public void makeTransaction(Long targetId, TransactionDTO transactionDTO);
 }

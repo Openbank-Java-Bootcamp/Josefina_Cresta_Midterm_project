@@ -5,9 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import static com.ironhack.BankingSystem.Model.Utils.AgeCalculator.calculateAge;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MoneyTest {
@@ -28,7 +25,6 @@ class MoneyTest {
         assertEquals(1340.50, balance.increaseAmount(amount) );
         assertEquals(12400.50, balance.increaseAmount(amount1) );
     }
-
 
 
     @Test

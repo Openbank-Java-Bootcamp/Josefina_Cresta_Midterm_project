@@ -9,7 +9,6 @@ import com.ironhack.BankingSystem.Model.Utils.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,6 +22,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "account")
 public class Account{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long AccountId;
@@ -35,11 +35,11 @@ public class Account{
     private Money balance;
 
     private String secretKey;
-
     @AttributeOverrides({
             @AttributeOverride(name = "currency", column = @Column(name = "penaltyFee_currency")),
             @AttributeOverride(name = "amount", column = @Column(name = "penaltyFee_amount"))
     })
+
     @Embedded
     private Money penaltyFee;
 
@@ -59,6 +59,8 @@ public class Account{
     private BigDecimal penaltyFee_BD = new BigDecimal(40);
     @Embedded
     private Money penaltyFee_money = new Money(penaltyFee_BD);
+
+
     public Account() {
     }
 
@@ -73,7 +75,6 @@ public class Account{
         this.penaltyFee = penaltyFee_money;
         this.status = Status.ACTIVE;
     }
-
 
 
 }

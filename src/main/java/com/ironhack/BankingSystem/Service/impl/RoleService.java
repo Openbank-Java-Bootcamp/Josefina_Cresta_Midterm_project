@@ -6,7 +6,6 @@ import com.ironhack.BankingSystem.Repository.security.RoleRepository;
 import com.ironhack.BankingSystem.Repository.security.UserRepository;
 import com.ironhack.BankingSystem.Service.interfaces.RoleServiceInterface;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

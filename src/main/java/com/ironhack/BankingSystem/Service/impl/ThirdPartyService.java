@@ -15,5 +15,4 @@ public class ThirdPartyService implements ThirdPartyServiceInterface {
     @Autowired
     ThirdParyRepository thirdParyRepository;
 
-    //y aca iran los metodos para la third party
 }

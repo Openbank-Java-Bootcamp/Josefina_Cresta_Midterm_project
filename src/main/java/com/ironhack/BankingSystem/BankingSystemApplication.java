@@ -30,15 +30,12 @@ public class BankingSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BankingSystemApplication.class, args);
 	}
-
 	@Autowired
 	public Environment environment;
-
 	@Bean
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-
 
 
 	@Bean
@@ -61,10 +58,14 @@ public class BankingSystemApplication {
 				userService.saveRole(new Role(null, "ROLE_ACCOUNT_HOLDER"));
 
 
-				userService.saveUser(new User(null, "John Doe", "john", "1234", new ArrayList<>()));
-				userService.saveUser(new User(null, "James Smith", "james", "1234", new ArrayList<>()));
-				userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new ArrayList<>()));
-				userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new ArrayList<>()));
+				userService.saveUser(new User(null, "John Doe", "john",
+						"1234", new ArrayList<>()));
+				userService.saveUser(new User(null, "James Smith", "james",
+						"1234", new ArrayList<>()));
+				userService.saveUser(new User(null, "Jane Carry", "jane",
+						"1234", new ArrayList<>()));
+				userService.saveUser(new User(null, "Chris Anderson", "chris",
+						"1234", new ArrayList<>()));
 
 				userService.addRoleToUser("john", "ROLE_ACCOUNT_HOLDER");
 				userService.addRoleToUser("james", "ROLE_ADMIN");
@@ -73,25 +74,24 @@ public class BankingSystemApplication {
 				userService.addRoleToUser("chris", "ROLE_USER");
 
 
-				userService.saveUser(new AccountHolder("Josefina", "jofi", "1234j", new ArrayList<>()));
-				//accountHolderService.saveAccountHolder(new AccountHolder(null, "Josefina", "jofi", "1234j", new ArrayList<>()));
-				userService.saveUser(new AccountHolder( "Maria", "paz", "$2b1234p", new ArrayList<>()));
+				userService.saveUser(new AccountHolder("Josefina", "jofi",
+						"1234j", new ArrayList<>()));
+				userService.saveUser(new AccountHolder( "Maria", "paz",
+						"$2b1234p", new ArrayList<>()));
 
 				userService.addRoleToUser("jofi", "ROLE_ACCOUNT_HOLDER");
 				userService.addRoleToUser("paz", "ROLE_ACCOUNT_HOLDER");
 
-				//accountService.saveNewAccount(new Account(balance1, "A124", accountHolder1, "ANa"));
-				//accountService.saveNewAccount(new CheckingAccounts(balance2, "B456", accountHolder2, "Ale"));
-				//accountService.saveNewSavingsAccount(new Savings(balance1, "A124", accountHolder1, "ANa"));
-				//accountService.saveNewCreditAccount(new CreditCard(balance2, "B456",
-				//		accountHolder2, "Ale", limit, c2));
-
-		/*
-			accountService.saveNewAccount(new Account(balance1, "4567ES",
-					accountHolder1, "Raymond"));
-			accountService.saveNewSavingsAccount(new Savings(balance1,"4567ES",
-					accountHolder1, "Raymond"));*/
-
+				accountService.saveNewAccount(new Account(balance1, "A124",
+						accountHolder1, "ANa"));
+				accountService.saveNewAccount(new CheckingAccounts(balance2, "B456",
+						accountHolder2, "Ale"));
+				accountService.saveNewSavingsAccount(new Savings(balance1, "A124",
+						accountHolder1, "ANa"));
+				accountService.saveNewCreditAccount(new CreditCard(balance2, "B456",
+						accountHolder2, "Ale", limit, c2));
+				accountService.saveNewCheckingAccount(new CheckingAccounts(balance2, "B456",
+						accountHolder2, "Ale"));
 
 			}
 

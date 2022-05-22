@@ -36,10 +36,6 @@ class UserRepositoryTest {
         userRepository.deleteAll();
     }
 
-    @Test
-    void findByUsername() {
-    }
-
 
     @Test
     void findByUserame_nameExactlyMatches_OK() {

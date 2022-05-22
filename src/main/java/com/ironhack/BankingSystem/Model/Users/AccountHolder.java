@@ -12,12 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
 @Data
@@ -59,7 +57,8 @@ public class AccountHolder extends User {
     }
 
     public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles,
-                         LocalDateTime birthDate, Address primaryAddress, Address mailingAddress, List<Account> accountList)
+                         LocalDateTime birthDate, Address primaryAddress, Address mailingAddress,
+                         List<Account> accountList)
     {
         super(id, name, username, password, roles);
         this.birthDate = birthDate;

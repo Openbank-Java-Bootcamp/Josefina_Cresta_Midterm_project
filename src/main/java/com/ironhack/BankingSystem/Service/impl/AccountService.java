@@ -2,11 +2,9 @@ package com.ironhack.BankingSystem.Service.impl;
 
 import com.ironhack.BankingSystem.Model.Accounts.*;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
-import com.ironhack.BankingSystem.Model.Utils.AgeCalculator;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Repository.Accounts.*;
 import com.ironhack.BankingSystem.Repository.Users.AccountHolderRepository;
-import com.ironhack.BankingSystem.Repository.security.UserRepository;
 import com.ironhack.BankingSystem.Service.interfaces.AccountServiceInterface;
 import com.ironhack.BankingSystem.Service.interfaces.UserServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.ironhack.BankingSystem.Service.impl.UserService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static com.ironhack.BankingSystem.Model.Utils.AgeCalculator.calculateAge;
@@ -52,7 +45,6 @@ public class AccountService implements AccountServiceInterface {
     private UserServiceInterface userService;
 
 
-    //Funciona pero no guarda account Holder ni le agrega a la lista del account holder la account
      @Override
     public Account saveNewAccount(Account account) {
         Optional<AccountHolder> accountOwner = accountHolderRepository.findById(account.getPrimaryOwner().getId());
@@ -72,50 +64,8 @@ public class AccountService implements AccountServiceInterface {
         }
     }
 
-
-
-    //SAVING QUE FUNCIONA
-    /*@Override
-    public Savings saveNewSavingsAccount(Savings savings) {
-        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
-        if(accountOwner.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "No Account Holder found with ID passed for this new Account");
-        }
-
-        try {
-            return savingsRepository.save(new Savings(
-                    savings.getBalance(),
-                    savings.getSecretKey(),
-                    savings.getPrimaryOwner(),
-                    savings.getSecondaryOwner()
-            ));
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed SAVINGS Account");
-        }
-    }*/
-
-    /*@Override
-    public Savings saveNewSavingsAccount(Savings savings) {
-        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId());
-        if(accountOwner.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "No Account Holder found with ID passed for this new Account");
-        }
-        List <Account> listSavings = new ArrayList<>();
-        listSavings.add(savings);
-        savings.getPrimaryOwner().setAccountList(listSavings);
-        try {
-            return savingsRepository.save(savings);
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed SAVINGS Account");
-        }
-    }*/
-
     @Override
     public Savings saveNewSavingsAccount(Savings savings) {
-
-        //accountHolderRepository.save(savings.getPrimaryOwner());
         userService.saveUser(savings.getPrimaryOwner());
         AccountHolder primaryOwner = savings.getPrimaryOwner();
         primaryOwner.setAccountList(Collections.singletonList(savings));
@@ -143,7 +93,6 @@ public class AccountService implements AccountServiceInterface {
         }
 
         userService.saveUser(creditCard.getPrimaryOwner());
-        //accountHolderRepository.save(creditCard.getPrimaryOwner());
         AccountHolder primaryOwner = creditCard.getPrimaryOwner();
         primaryOwner.setAccountList(Collections.singletonList(creditCard));
 
@@ -161,10 +110,10 @@ public class AccountService implements AccountServiceInterface {
         }
     }
 
-
     @Override
     public Account saveNewCheckingAccount(CheckingAccounts checkingAccount) {
-        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(checkingAccount.getPrimaryOwner().getId());
+        Optional<AccountHolder> accountOwner = accountHolderRepository.findById(
+                checkingAccount.getPrimaryOwner().getId());
         if(accountOwner.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No Account Holder found with ID passed. Let's create a new client ");
@@ -177,10 +126,10 @@ public class AccountService implements AccountServiceInterface {
         LocalDateTime birthDate = primaryOwner.getBirthDate();
         int age = calculateAge(birthDate, LocalDateTime.now());
 
-        System.out.println("AGEeeeeeee:: " + age);
+        log.info("The age of the client is: " , age);
         try{
             if  (age < 24) {
-            System.out.println("LEt create a student account");
+            log.info("Let create a student account");
             return studentCheckingRepository.save(new StudentChecking(
                     checkingAccount.getBalance(),
                     checkingAccount.getSecretKey(),
@@ -188,7 +137,6 @@ public class AccountService implements AccountServiceInterface {
                     checkingAccount.getSecondaryOwner()
             ));
         }else{
-                System.out.println("LEt create a simple CHACKING account");
             return checkingAccountsRepository.save(new CheckingAccounts(
                     checkingAccount.getBalance(),
                     checkingAccount.getSecretKey(),
@@ -201,19 +149,6 @@ public class AccountService implements AccountServiceInterface {
     }
 
 
-    ////////////////////////////////
-
-/*    public static int calculateAge(LocalDateTime birthDate, LocalDateTime currentDate) {
-        System.out.println(birthDate);
-        System.out.println(currentDate);
-        if ((birthDate != null) && (currentDate != null)) {
-            return Period.between(LocalDate.from(birthDate), LocalDate.from(currentDate)).getYears();
-        } else {
-            return 0;
-        }
-    }*/
-
-    ///////////////////////////////
 
 
     public void updateBalance(Long id, Money balance) {
