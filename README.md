@@ -1,5 +1,4 @@
-#  BANKING SYSTEM 🏦🗝💸
-
+# BANKING SYSTEM 🏦🗝💸
 
 ## Midterm project
 
@@ -9,16 +8,15 @@
 
 ![imagen_intro](img/HELP.jpeg)
 
-
 ---
 
-For this project, we buit a banking system. 
-This bank have 4 types of accounts: 
+For this project, we buit a banking system.
+This bank have 4 types of accounts:
 
-- Checking 
+- Checking
 - StudentChecking (less than 24 years old)
-- Savings 
-- CreditCard 
+- Savings
+- CreditCard
 
 In the bank there are 3 types of person: Admins and AccountHolders and Thirdparty.
 It is possible to see the activities allowed for each type of person in the following case diagram.
@@ -29,10 +27,9 @@ It is possible to see the activities allowed for each type of person in the foll
 
 In order work in the bank system, the users have to login:
 
-
-<div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;">
+<p style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;">
 Login
-</div>
+</p>
 
 Used to collect a Bearer Token for a registered User.
 
@@ -87,11 +84,11 @@ Used to collect a Bearer Token for a registered User.
     ]
 }
 ```
+
 ---
 ---
 
 Banking workers (Admins) can create the three types of accounts with the followings endpoints:
-
 
 ### Checking Accounts
 
@@ -240,7 +237,6 @@ The new Saving account with default interest rate of 0.0025 and  minimum balance
 ---
 ---
 
-
 ### Credit Card Accounts
 
 Used to create a new Credit Card account for a registered or not registered (but will create a new) client. This accounts propeties like the others accounts, and also have:
@@ -257,6 +253,7 @@ Used to create a new Credit Card account for a registered or not registered (but
 **Data constraints**
 
 Provide all info of Account to be created.
+
 ```json
 {
     "balance": "Money Object",
@@ -308,8 +305,6 @@ The new Credit card account with default credit Limit of 100 and interest Rate o
 
 Admins can also store a potential account Holder, get information about the clients, modify information of the clients and remove clients from the data base of the bank.
 
-
-
 ### Store new client
 
 Used to store in the data base a new client with name, date of birth, primary address and an optional mailingAddress.
@@ -335,6 +330,7 @@ Provide all info of client to be created.
         "mailingAddress": "Valid adress"
 }
 ```
+
 **Data example**
 
 ```json
@@ -368,7 +364,7 @@ The new client is added to the bank's database.
 ---
 ---
 
-### Lookup information 
+### Lookup information
 
 Used to obtain customer information.
 **URL** : `/bank/accountholders/{id}`
@@ -381,7 +377,6 @@ Used to obtain customer information.
 **Path Params**
 
 `"id" = "id of the customer"`
-
 
 **Success Response**
 
@@ -415,7 +410,7 @@ Used to obtain customer information.
 ---
 ---
 
-### Add information 
+### Add information
 
 Used to add information to an existing customer.
 **URL** : `/bank/accountholders/{id}`
@@ -452,7 +447,7 @@ Used to add information to an existing customer.
 ---
 ---
 
-### Delete a customer 
+### Delete a customer
 
 Used to delete an existing customer.
 **URL** : `/bank/accountholders/{id}`
@@ -468,7 +463,6 @@ Used to delete an existing customer.
 
 `"id" = "id of the customer"`
 
-
 **Success Response**
 
 **Code** : `204 No Content`
@@ -476,10 +470,8 @@ Used to delete an existing customer.
 ---
 ---
 
-
-
 The Account Holders can access their own accounts and only
-their accounts when passing the correct credentials using Bearer Auth and they can make transactions 
+their accounts when passing the correct credentials using Bearer Auth and they can make transactions
 
 ### Transactions
 
@@ -525,11 +517,9 @@ The currently Authenticated User makes a transaction to the specified account fo
 
 **Code** : `204 No Content`
 
-
 ---
 ---
 The third party users have a hashed key and a name.
-
 
 ---
 Here are the class diagram and the reverse ingener data base
