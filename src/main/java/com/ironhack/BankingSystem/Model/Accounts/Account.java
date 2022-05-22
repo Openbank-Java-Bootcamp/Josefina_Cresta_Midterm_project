@@ -56,17 +56,6 @@ public class Account{
 
     private String secondaryOwner;
 
-   /* public Account(Money balance, String secretKey, Money penaltyFee,
-                   LocalDateTime creationDate, Status status, AccountHolder primaryOwner, String secondaryOwner) {
-        this.balance = balance;
-        this.secretKey = secretKey;
-        this.penaltyFee = penaltyFee;
-        this.creationDate = creationDate;
-        this.status = status;
-        this.primaryOwner = primaryOwner;
-        this.secondaryOwner = secondaryOwner;
-    }*/
-
     private BigDecimal penaltyFee_BD = new BigDecimal(40);
     @Embedded
     private Money penaltyFee_money = new Money(penaltyFee_BD);

@@ -34,8 +34,6 @@ public class CheckingAccounts extends Account {
     @Embedded
     private Money monthlyMaintenanceFee = new Money(new BigDecimal(12));;
 
-    //minumun of 250 en balance y 12 en maintenca
-
 
     public CheckingAccounts(Money balance, String secretKey, AccountHolder primaryOwner, String secondaryOwner) {
         super(balance, secretKey,  primaryOwner, secondaryOwner);

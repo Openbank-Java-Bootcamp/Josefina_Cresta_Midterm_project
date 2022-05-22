@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
-
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    /*Role findByUsernamePrimaryOwner(String username);*/
+
 }

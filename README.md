@@ -140,7 +140,7 @@ Provide all info of Account to be created.
         "username": "jofi11",
         "password": "1234jogi",
         "roles": [],
-        "birthDate": "1997-01-13 13:08:39",
+        "birthDate": "1997-01-1",
         "primaryAddress": {
             "streetAddress" : "Montes de Oca",
             "city" : "Carlos Pellegrini",

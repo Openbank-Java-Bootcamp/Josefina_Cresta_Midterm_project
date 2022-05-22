@@ -87,8 +87,6 @@ public class BankingSystemApplication {
 				//		accountHolder2, "Ale", limit, c2));
 
 		/*
-
-
 			accountService.saveNewAccount(new Account(balance1, "4567ES",
 					accountHolder1, "Raymond"));
 			accountService.saveNewSavingsAccount(new Savings(balance1,"4567ES",
