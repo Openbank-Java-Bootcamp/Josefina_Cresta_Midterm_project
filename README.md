@@ -27,9 +27,11 @@ It is possible to see the activities allowed for each type of person in the foll
 
 In order work in the bank system, the users have to login:
 
-<div style="background: red" markdown=1>
-Login
-</p>
+
+### $\textcolor{teal}{Login}$
+
+
+<span style="background-color: #FFFF00">Marked text</span>
 
 Used to collect a Bearer Token for a registered User.
 
