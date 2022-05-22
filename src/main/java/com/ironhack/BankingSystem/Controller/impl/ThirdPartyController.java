@@ -13,5 +13,5 @@ public class ThirdPartyController implements ThirdPartyControllerInterface {
     @Autowired
     private ThirdPartyServiceInterface thirdPartyService;
 
-    //ACa van los endpoint
+
 }

@@ -1,10 +1,7 @@
 package com.ironhack.BankingSystem.Controller.impl;
 
-import com.ironhack.BankingSystem.Controller.interfaces.AccountControllerInterface;
 import com.ironhack.BankingSystem.Controller.interfaces.AccountHolderControllerInterface;
 import com.ironhack.BankingSystem.DTO.TransactionDTO;
-import com.ironhack.BankingSystem.Model.Accounts.Account;
-import com.ironhack.BankingSystem.Model.Accounts.Savings;
 import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 import com.ironhack.BankingSystem.Repository.Accounts.AccountRepository;
@@ -13,15 +10,7 @@ import com.ironhack.BankingSystem.Service.interfaces.AccountHolderServiceInterfa
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("bank/accountholders")
 public class AccountHolderController implements AccountHolderControllerInterface {
@@ -32,7 +21,6 @@ public class AccountHolderController implements AccountHolderControllerInterface
     @Autowired
     private AccountHolderRepository accountHolderRepository;
 
-    //ACa van los endpoint
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public AccountHolder getAccountHolder(@PathVariable Long id) {
