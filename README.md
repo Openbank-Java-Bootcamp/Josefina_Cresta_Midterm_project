@@ -92,7 +92,7 @@ Banking workers (Admins) can create the three types of accounts with the followi
 
 ```diff
 ! Checking Accounts
-```
+
 
 
 Used to create a new Checking account for a registered or not registered (but will create a new) client.
@@ -167,6 +167,7 @@ Provide all info of Account to be created.
 If the cliente is more than 24 years old, a new checking account with minimum balance of 250 and a
 monthly maintenance fee of 12, is added to the bank's database.
 Otherwise, when the client ist younger, a new Student Account is created without monthly maintenance fee neither  minimum balance.
+```
 
 ---
 ---
