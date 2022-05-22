@@ -92,8 +92,7 @@ Banking workers (Admins) can create the three types of accounts with the followi
 
 ```diff
 ! Checking Accounts
-
-
+```
 
 Used to create a new Checking account for a registered or not registered (but will create a new) client.
 If the owner is less than 24 years old, a Student Checking account is created.
@@ -167,12 +166,14 @@ Provide all info of Account to be created.
 If the cliente is more than 24 years old, a new checking account with minimum balance of 250 and a
 monthly maintenance fee of 12, is added to the bank's database.
 Otherwise, when the client ist younger, a new Student Account is created without monthly maintenance fee neither  minimum balance.
+
+
+---
+---
+
+```diff
+! Saving Accounts
 ```
-
----
----
-
-### Saving Accounts
 
 Used to create a new Saving account for a registered or not registered (but will create a new) client. Savings are identical to Checking accounts except that they do not have a monthly maintenance fee, but they have an interest rate.
 
@@ -241,7 +242,9 @@ The new Saving account with default interest rate of 0.0025 and  minimum balance
 ---
 ---
 
-### Credit Card Accounts
+```diff
+! Credit Card Accounts
+```
 
 Used to create a new Credit Card account for a registered or not registered (but will create a new) client. This accounts propeties like the others accounts, and also have:
     - A creditLimit
@@ -309,7 +312,9 @@ The new Credit card account with default credit Limit of 100 and interest Rate o
 
 Admins can also store a potential account Holder, get information about the clients, modify information of the clients and remove clients from the data base of the bank.
 
-### Store new client
+```diff
+! Store new client
+```
 
 Used to store in the data base a new client with name, date of birth, primary address and an optional mailingAddress.
 
@@ -368,7 +373,9 @@ The new client is added to the bank's database.
 ---
 ---
 
-### Lookup information
+```diff
++ Lookup information
+```
 
 Used to obtain customer information.
 **URL** : `/bank/accountholders/{id}`
@@ -414,7 +421,9 @@ Used to obtain customer information.
 ---
 ---
 
-### Add information
+```diff
+- Add information
+```
 
 Used to add information to an existing customer.
 **URL** : `/bank/accountholders/{id}`
@@ -451,8 +460,9 @@ Used to add information to an existing customer.
 ---
 ---
 
-### Delete a customer
-
+```diff
+- Delete a customer
+```
 Used to delete an existing customer.
 **URL** : `/bank/accountholders/{id}`
 `
@@ -477,8 +487,9 @@ Used to delete an existing customer.
 The Account Holders can access their own accounts and only their accounts when passing the correct credentials using Bearer Auth. They can see the balance of their account and they can make transactions.
 
 
-
-### Check Balance
+```diff
++ Check Balance
+```
 
 Used to check balance of an account. The account must belong to the user making the query
 
@@ -540,7 +551,9 @@ Used to check balance of an account. The account must belong to the user making 
 ---
 ---
 
-### Transactions
+```diff
+@@ Transactions @@
+```
 
 The currently Authenticated User makes a transaction to the specified account for a specified amount.
 
@@ -615,7 +628,9 @@ Provide the transaction amount and currency.
 ---
 ---
 
-### Transaction from account to account
+```diff
+@@ Transaction from account to account @@
+```
 
 Bankers can make transactions from one account to another without needing to be logged in as clients
 
