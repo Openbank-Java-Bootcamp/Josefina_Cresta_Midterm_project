@@ -713,14 +713,16 @@ The system made is for a bank that is in its first days of work. Many things mus
 
 # Resources
 
-[hibernate-inheritance](https://www.baeldung.com/hibernate-inheritance).
+- OpenCamp Java Bootcamp Ironhack Lessons by Raymond and Schaun. Thank you very much for your help and support.
 
-[data-authentication](https://freecontent.manning.com/data-authentication-with-keyed-hashing/).
+- [hibernate-inheritance](https://www.baeldung.com/hibernate-inheritance).
+
+- [data-authentication](https://freecontent.manning.com/data-authentication-with-keyed-hashing/).
 [sha-256](https://www.baeldung.com/sha-256-hashing-java).
 
-[sha-hashing](https://mkyong.com/java/java-sha-hashing-example/).
+- [sha-hashing](https://mkyong.com/java/java-sha-hashing-example/).
 
-[java-crypto](
+- [java-crypto](
 https://github.com/mkyong/core-java/tree/master/java-crypto/src/main/java/com/mkyong/crypto/hash).
 
-[REST API Documentation Templates](https://github.com/jamescooke/restapidocs).
+- [REST API Documentation Templates](https://github.com/jamescooke/restapidocs).
