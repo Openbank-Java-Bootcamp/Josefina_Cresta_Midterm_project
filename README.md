@@ -28,13 +28,8 @@ It is possible to see the activities allowed for each type of person in the foll
 In order work in the bank system, the users have to login:
 
 ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
++ Login
 ```
-### Login
 
 Used to collect a Bearer Token for a registered User.
 
@@ -95,7 +90,10 @@ Used to collect a Bearer Token for a registered User.
 
 Banking workers (Admins) can create the three types of accounts with the followings endpoints:
 
-### Checking Accounts
+```diff
+! Checking Accounts
+```
+
 
 Used to create a new Checking account for a registered or not registered (but will create a new) client.
 If the owner is less than 24 years old, a Student Checking account is created.
