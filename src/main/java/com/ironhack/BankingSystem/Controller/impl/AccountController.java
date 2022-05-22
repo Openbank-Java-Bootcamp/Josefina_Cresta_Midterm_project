@@ -23,8 +23,6 @@ public class AccountController implements AccountControllerInterface {
     private AccountService accountService;
 
 
-    //ACa van los endpoint
-
     //General account
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

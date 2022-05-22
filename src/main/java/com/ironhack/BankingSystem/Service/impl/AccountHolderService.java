@@ -85,19 +85,20 @@ public class AccountHolderService implements AccountHolderServiceInterface {
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
 
         if (accountHolderId == accountFromDB.getPrimaryOwner().getId()){
-            System.out.println("The balance of your account with id "+ accountId.toString() + " is");
-            System.out.println(accountFromDB.getBalance().toString());
+            //System.out.println("The balance of your account with id "+ accountId.toString() + " is");
+            log.info("The balance of your account with id {}", accountId.toString());
+            log.info(accountFromDB.getBalance().toString());
             return accountFromDB.getBalance();
         }else{
-            System.out.println("You can't see the balance of this account");
+            log.info("You can't see the balance of this account");
         }
         Money nulo = new Money(new BigDecimal(0));
         return nulo;
     }
 
-    //Funciona
-   /* @Override
-    public void transaction(Long withdrawId, Long targetId, TransactionDTO transactionDTO) {
+
+    @Override
+    public void transactionTo(Long withdrawId, Long targetId, TransactionDTO transactionDTO) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -131,7 +132,7 @@ public class AccountHolderService implements AccountHolderServiceInterface {
             throw new UnsupportedOperationException("Not enough funds to carry out the transaction");
         }
 
-    }*/
+    }
 
     public void transaction(Long targetId, TransactionDTO transactionDTO) {
         String username;

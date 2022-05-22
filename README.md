@@ -27,11 +27,14 @@ It is possible to see the activities allowed for each type of person in the foll
 
 In order work in the bank system, the users have to login:
 
-
-### $\textcolor{teal}{Login}$
-
-
-<span style="background-color: #FFFF00">Marked text</span>
+```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
+```
+### Login
 
 Used to collect a Bearer Token for a registered User.
 
@@ -472,8 +475,71 @@ Used to delete an existing customer.
 ---
 ---
 
-The Account Holders can access their own accounts and only
-their accounts when passing the correct credentials using Bearer Auth and they can make transactions
+The Account Holders can access their own accounts and only their accounts when passing the correct credentials using Bearer Auth. They can see the balance of their account and they can make transactions.
+
+
+
+### Check Balance
+
+Used to check balance of an account. The account must belong to the user making the query
+
+**URL** : `/bank/accountholders/balance`
+
+**Method** : `GET`
+
+**Auth required** : YES
+
+**Permissions required** : Admins and Account Holders
+
+**Query Params**
+
+```json
+{
+    "holder_id": "valid account holder id",
+    "account_id": "valid account id"
+}
+```
+
+**Data example**
+
+```json
+{
+    "username": "6",
+    "password": "3"
+}
+```
+
+**Success Response**
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+    "The balance of your account with id 10 is": 1245.23
+}
+```
+
+
+**Error Response**
+
+**Condition** : if the account does not belong to the query.
+
+**Code** : `403 Forbidden`
+
+**Content** :
+
+```json
+{
+    "error": [
+        "You can't see the balance of this account"
+    ]
+}
+```
+
+---
+---
 
 ### Transactions
 
@@ -504,6 +570,17 @@ The currently Authenticated User makes a transaction to the specified account fo
 }
 ```
 
+
+**Data constraints**
+
+Provide the transaction amount and currency.
+
+```json
+{
+    "transactionAmount": "transaction object"
+}
+```
+
 **Data example**
 
 ```json
@@ -519,12 +596,118 @@ The currently Authenticated User makes a transaction to the specified account fo
 
 **Code** : `204 No Content`
 
----
----
-The third party users have a hashed key and a name.
+**Error Response**
+
+**Condition** : if the account does not belong to the query.
+
+**Code** : `403 Forbidden`
+
+**Content** :
+
+```json
+{
+    "error": [
+        "Not enough funds to carry out the transaction"
+    ]
+}
+```
+
 
 ---
-Here are the class diagram and the reverse ingener data base
+---
 
-Future Work
-Resources
+### Transaction from account to account
+
+Bankers can make transactions from one account to another without needing to be logged in as clients
+
+**URL** : `/bank/accountholders/transactions/accountToAccount`
+`
+
+**Method** : `PATCH`
+
+**Auth required** : YES
+
+**Permissions required** : Admis
+
+**Query Params**
+
+```json
+{
+    "account_id": "accountHolderId",
+    "target_id": "targetId",
+}
+```
+
+**Data example**
+
+```json
+{
+    "account_id": "5",
+    "target_id": "1",
+}
+```
+
+**Data constraints**
+
+Provide the transaction amount and currency.
+
+```json
+{
+    "transactionAmount": "transaction object"
+}
+```
+
+**Data example**
+
+```json
+{
+    "transactionAmount":{
+        "amount" : 1000,
+        "currency": "EUR"
+    }
+}
+```
+
+**Success Response**
+
+**Code** : `204 No Content`
+
+**Error Response**
+
+**Condition** : if the account does not belong to the query.
+
+**Code** : `403 Forbidden`
+
+**Content** :
+
+```json
+{
+    "error": [
+        "Not enough funds to carry out the transaction"
+    ]
+}
+```
+
+---
+Here are the class diagram
+
+# Future Work
+
+The system made is for a bank that is in its first days of work. Many things must be improved. The team will continue working in the interaction with accounts of other banks, the detection of fraud, the offer of investment products, among other things. Every effort will be made to achieve a higher quality of service for our customers.
+
+---
+---
+
+# Resources
+
+[hibernate-inheritance](https://www.baeldung.com/hibernate-inheritance).
+
+[data-authentication](https://freecontent.manning.com/data-authentication-with-keyed-hashing/).
+[sha-256](https://www.baeldung.com/sha-256-hashing-java).
+
+[sha-hashing](https://mkyong.com/java/java-sha-hashing-example/).
+
+[java-crypto](
+https://github.com/mkyong/core-java/tree/master/java-crypto/src/main/java/com/mkyong/crypto/hash).
+
+[REST API Documentation Templates](https://github.com/jamescooke/restapidocs).

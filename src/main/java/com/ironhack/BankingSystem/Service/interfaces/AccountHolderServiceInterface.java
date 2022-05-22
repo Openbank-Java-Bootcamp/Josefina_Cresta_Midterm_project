@@ -5,8 +5,6 @@ import com.ironhack.BankingSystem.Model.Users.AccountHolder;
 import com.ironhack.BankingSystem.Model.Utils.Money;
 
 public interface AccountHolderServiceInterface {
-
-    //Aca ira las signatures de los metodos que se definen een el service
     public AccountHolder getAccountHolderById(Long id);
     public void saveAccountHolder(AccountHolder author);
     public void updateAccountHolder(Long id, AccountHolder author);
@@ -16,5 +14,7 @@ public interface AccountHolderServiceInterface {
 
     public void transaction(Long targetId, TransactionDTO transactionDTO);
 
-    /*AccountHolder getBalance(Long id);*/
+    public void transactionTo(Long accountHolderId, Long targetId, TransactionDTO transactionDTO);
+
+
 }

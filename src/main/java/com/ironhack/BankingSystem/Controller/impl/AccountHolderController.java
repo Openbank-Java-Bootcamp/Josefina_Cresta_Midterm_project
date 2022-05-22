@@ -45,42 +45,11 @@ public class AccountHolderController implements AccountHolderControllerInterface
         accountHolderServiceInterface.deleteAccountHolder(id);
     }
 
-    /*@GetMapping("/balance")
-    @ResponseStatus(HttpStatus.OK)
-    public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId, @RequestParam(name = "account_id") Long accountId){
-
-        Optional<Account> account = accountRepository.findById(accountId);
-        if(account.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "No account with this ID");
-        }
-
-        AccountHolder accountHolderFromDB = accountHolderRepository.findById(accountHolderId).orElseThrow(()
-                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Your ID is incorrect"));
-
-        System.out.println("LIST: " + accountHolderFromDB.getAccountList());
-        if (accountHolderFromDB.getAccountList().contains(account)){
-            return account.get().getBalance();
-        }else{
-        return null;}
-    }*/
-
     @GetMapping("/balance")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Money getBalance(@RequestParam(name = "holder_id") Long accountHolderId, @RequestParam(name = "account_id") Long accountId) {
         return accountHolderServiceInterface.getBalance(accountHolderId, accountId);
     }
-
-
-    //FUnciona
-    /*@PatchMapping("/transactions")
-    @ResponseStatus(HttpStatus.OK)
-    public void makeTransaction(@RequestParam(name = "account_id") Long accountHolderId,
-                               @RequestParam(name = "target_id") Long targetId,
-                               @RequestBody @Valid TransactionDTO transactionDTO) {
-        accountHolderServiceInterface.transaction(accountHolderId, targetId, transactionDTO);
-    }*/
-
 
 
     @PatchMapping("/transactions")
@@ -88,5 +57,13 @@ public class AccountHolderController implements AccountHolderControllerInterface
     public void makeTransaction(@RequestParam(name = "target_id") Long targetId,
                                 @RequestBody @Valid TransactionDTO transactionDTO) {
         accountHolderServiceInterface.transaction(targetId, transactionDTO);
+    }
+
+    @PatchMapping("/transactions/accountToAccount")
+    @ResponseStatus(HttpStatus.OK)
+    public void makeTransaction(@RequestParam(name = "account_id") Long accountHolderId,
+                                @RequestParam(name = "target_id") Long targetId,
+                                @RequestBody @Valid TransactionDTO transactionDTO) {
+        accountHolderServiceInterface.transactionTo(accountHolderId, targetId, transactionDTO);
     }
 }
