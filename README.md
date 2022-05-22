@@ -10,7 +10,7 @@
 
 ---
 
-For this project, we buit a banking system.
+For this project, we build a banking system.
 This bank have 4 types of accounts:
 
 - Checking
@@ -18,10 +18,14 @@ This bank have 4 types of accounts:
 - Savings
 - CreditCard
 
-In the bank there are 3 types of person: Admins and AccountHolders and Thirdparty.
+In the bank there are 3 types of person: Admins and Account Holders and Third party.
 It is possible to see the activities allowed for each type of person in the following case diagram.
 
-![imagen_intro](img/casediag.png)
+![Case diagram](img/casediag.png)
+
+The attributes of each system object can be seen in the following class diagram
+
+![Class Diagram](img/classdiag.png)
 
 # API Endpoint & Methods
 
@@ -713,7 +717,7 @@ The system made is for a bank that is in its first days of work. Many things mus
 
 # Resources
 
-- OpenCamp Java Bootcamp Ironhack Lessons by Raymond and Schaun. Thank you very much for your help and support.
+- OpenCamp Java Bootcamp Ironhack Lessons by Raymond and Shaun. Thank you very much for your help and support.
 
 - [hibernate-inheritance](https://www.baeldung.com/hibernate-inheritance).
 

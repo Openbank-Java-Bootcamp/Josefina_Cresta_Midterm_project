@@ -1,4 +1,4 @@
-package com.ironhack.BankingSystem.Model.Users;
+package com.ironhack.BankingSystem.Model.Utils;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

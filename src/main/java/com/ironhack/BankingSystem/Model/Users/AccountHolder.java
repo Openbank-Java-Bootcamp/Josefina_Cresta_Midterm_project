@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.ironhack.BankingSystem.Model.Accounts.Account;
+import com.ironhack.BankingSystem.Model.Utils.Address;
 import com.ironhack.BankingSystem.Model.secutiry.Role;
 import com.ironhack.BankingSystem.Model.secutiry.User;
 import jakarta.persistence.*;
