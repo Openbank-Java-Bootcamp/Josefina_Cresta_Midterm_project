@@ -703,7 +703,6 @@ Provide the transaction amount and currency.
 ```
 
 ---
-Here are the class diagram
 
 # Future Work
 
